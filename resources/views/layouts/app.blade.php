@@ -55,20 +55,20 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @can('manage-users')
+                                        <a class="dropdown-item" href="{{ route('admin.users.index') }}">
+                                            User Management
+                                        </a>
+                                    @endcan
+
+                                    <a class="dropdown-item" href="{{ route('event') }}">
+                                        Event History
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
-                                    </a>
-
-                                    @can('manage-users')
-                                    <a class="dropdown-item" href="{{ route('admin.users.index') }}">
-                                        User Management
-                                    </a>
-                                    @endcan
-
-                                    <a class="dropdown-item" href="{{ route('cert') }}">
-                                        User Certificate
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

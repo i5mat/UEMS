@@ -17,7 +17,7 @@
                                 <th scope="col">Roles</th>
                                 <th scope="col">Actions</th>
                                 <th scope="col">Del</th>
-                                <th scope="col">Generate Cert</th>
+                                <th scope="col">Cert</th>
                             </tr>
                             </thead>
                             <tbody>

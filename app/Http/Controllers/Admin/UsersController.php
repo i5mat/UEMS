@@ -49,8 +49,8 @@ class UsersController extends Controller
         imagettftext($image, 45, 0, 120, 520, $color,$font, $test);
         imagettftext($image, 40, 0, 120, 640, $color,$font, $course);
         imagejpeg($image,"../public/$test.jpg");
-        imagejpeg($image);
-        imagedestroy($image);
+        //imagejpeg($image);
+        //imagedestroy($image);
 
         return redirect()->route('admin.users.index');
     }
