@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DateTime;
 use App\Event;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -16,11 +17,11 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Event $event)
     {
         $events = Event::all();
 
-        return view('events.index')->with('events', $events);
+        return view('events.index', compact('events', 'event'));
     }
 
     public function Calendar()
@@ -95,9 +96,9 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -107,17 +108,30 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, Event $event, $id)
     {
-        $event->name = $request->name;
-        $event->description = $request->description;
-        $event->venue = $request->venue;
-        $event->capacity = $request->capacity;
-        $event->start = $request->start;
+        $event = Event::findOrFail($id);
+//
+//        $event->name = $request->name;
+//        $event->description = $request->description;
+//        $event->venue = $request->venue;
+//        $event->capacity = $request->capacity;
+        $event->start = $request->startdate;
+//
+//        $event->save();
+//
+//        return redirect()->route('events.index', compact('event'));
 
-        $event->save();
+        $event->update($request->all());
 
-        return redirect()->route('events.index');
+        if($event->save()) {
+            $request->session()->flash('success',  $event->name.' updated successfully');
+        }
+        else {
+            $request->session()->flash('error', 'Event not updated. There was an error.');
+        }
+
+        return redirect()->route('event');
     }
 
     /**

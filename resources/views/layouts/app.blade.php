@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -89,5 +86,33 @@
             </div>
         </main>
     </div>
+
+<script src="{{asset('js/app.js')}}"></script>
+<script>
+    $('#exampleModalCenter2').on('show.bs.modal', function (event) {
+
+        console.log('Modal Open')
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var name = button.data('myname') // Extract info from data-* attributes
+        var desc = button.data('mydesc') // Extract info from data-* attributes
+        var eveid = button.data('eveid') // Extract info from data-* attributes
+
+        var venue = button.data('venue') // Extract info from data-* attributes
+        var cap = button.data('cap') // Extract info from data-* attributes
+        var start = button.data('mystart') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+
+        modal.find('.modal-body #name').val(name);
+        modal.find('.modal-body #description').val(desc);
+        modal.find('.modal-body #eveid').val(eveid);
+
+        modal.find('.modal-body #venue').val(venue);
+        modal.find('.modal-body #capacity').val(cap);
+        modal.find('.modal-body #startdate').val(start);
+    })
+</script>
+
 </body>
 </html>

@@ -90,7 +90,7 @@
                                             <label for="start-date-label" class="col-md-4 col-form-label text-md-right">Start</label>
 
                                             <div class="col-md-6">
-                                                <input id="start-date" type="datetime-local" name="start-date" value="2020-11-01T08:30" min="2020-11-01T00:00" max="2022-01-01T00:00">
+                                                <input id="start-date" type="datetime-local" name="start-date" min="2020-11-01T00:00" max="2022-01-01T00:00">
                                             </div>
                                         </div>
 
@@ -117,9 +117,14 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <form method="POST" action="{{ 'edit-event' }}">
+                                    <input type="hidden" name="eveid" id="eveid" value="">
+
+                                        @foreach($events as $evees)
+                                    <form method="POST" action="{{ route('edit-event', $evees->id) }}">
+                                        @endforeach
                                         @csrf
                                         {{ method_field('PUT') }}
+
                                         <div class="form-group row">
                                             <label for="name-label" class="col-md-4 col-form-label text-md-right">Name</label>
 
@@ -178,9 +183,8 @@
 
                                         <div class="form-group row">
                                             <label for="start-date-label" class="col-md-4 col-form-label text-md-right">Start</label>
-
                                             <div class="col-md-6">
-                                                <input id="start-date" type="datetime-local" name="start-date" value="2020-11-01T08:30" min="2020-11-01T00:00" max="2022-01-01T00:00">
+                                                <input id="start-date" type="datetime-local" name="startdate" min="2020-11-01T00:00" max="2022-01-01T00:00">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -216,8 +220,8 @@
                                 <td>{{ $eve->description }}</td>
                                 <td>{{ $eve->venue }}</td>
                                 <td>{{ $eve->capacity }}</td>
-                                <td>{{ $eve->start }}</td>
-                                <td>{{ $eve->end }}</td>
+                                <td>{{ date('d/m/Y H:i:s A', strtotime($eve->start)) }}</td>
+                                <td>{{ date('d/m/Y H:i:s A', strtotime($eve->end)) }}</td>
                                 @if(new DateTime() > new DateTime($eve->end))
                                     <td>Past</td>
                                 @elseif (new DateTime($eve->start) <> new DateTime($eve->end))
@@ -226,7 +230,7 @@
                                     <td>Not Past</td>
                                 @endif
                                 <td>
-                                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
+                                    <button data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
                                 </td>
                             </tr>
                             @endforeach

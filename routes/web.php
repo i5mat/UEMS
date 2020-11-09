@@ -28,7 +28,7 @@ Route::post('/cert/{id}', [UsersController::class, 'certificate']);
 
 Route::get('/event', [EventController::class, 'index'])->name('event');
 Route::post('/reg-event', [EventController::class, 'store'])->name('reg-event');
-Route::get('/event/{id}', [EventController::class, 'update'])->name('edit-event');
+Route::put('/event/{id}', [EventController::class, 'update'])->name('edit-event');
 
 Route::get('/calendar', [EventController::class, 'Calendar'])->name('calendar');
 
