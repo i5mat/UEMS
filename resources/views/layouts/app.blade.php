@@ -58,8 +58,14 @@
                                         </a>
                                     @endcan
 
+                                    @can('manage-users')
                                     <a class="dropdown-item" href="{{ route('event') }}">
                                         Event History
+                                    </a>
+                                    @endcan
+
+                                    <a class="dropdown-item" href="{{ route('attindex') }}">
+                                        Attendance
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -95,11 +101,12 @@
         var button = $(event.relatedTarget) // Button that triggered the modal
         var name = button.data('myname') // Extract info from data-* attributes
         var desc = button.data('mydesc') // Extract info from data-* attributes
-        var eveid = button.data('eveid') // Extract info from data-* attributes
+        var eveid = button.data('eventid') // Extract info from data-* attributes
 
         var venue = button.data('venue') // Extract info from data-* attributes
         var cap = button.data('cap') // Extract info from data-* attributes
         var start = button.data('mystart') // Extract info from data-* attributes
+        var end = button.data('myend') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
@@ -111,6 +118,7 @@
         modal.find('.modal-body #venue').val(venue);
         modal.find('.modal-body #capacity').val(cap);
         modal.find('.modal-body #startdate').val(start);
+        modal.find('.modal-body #enddate').val(end);
     })
 </script>
 

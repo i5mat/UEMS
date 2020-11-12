@@ -45,6 +45,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Event');
     }
 
+    public function attendances(){
+        return $this->hasMany('App\Attendance');
+    }
+
     public function hasAnyRoles($roles){
         if($this->roles()->whereIn('name', $roles)->first()) {
             return true;

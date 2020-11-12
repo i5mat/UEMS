@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Attendance;
 use DateTime;
 use App\Event;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use function Sodium\add;
 
 class EventController extends Controller
@@ -17,11 +19,54 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Event $event)
+    public function index()
     {
         $events = Event::all();
 
-        return view('events.index', compact('events', 'event'));
+        return view('events.index', compact('events'));
+    }
+
+    public function attendanceindex()
+    {
+        $event = Event::all();
+
+        return view('attendance.index', compact('event'));
+    }
+
+    public function delAtt($id, Request $request, Attendance $att)
+    {
+        $event = Event::findOrFail($id);
+        $att = Attendance::where('user_id', '=', Auth::user()->id)->where('event_id', '=', $event->id)->first();
+        DB::table('events')->where('id', '=', $event->id)->increment('capacity', 1);
+
+        if($att->delete()) {
+            $request->session()->flash('success',  $event->name.' deleted successfully');
+        }
+        else {
+            $request->session()->flash('error', 'Attendance not Deleted. There was an error.');
+        }
+
+        return redirect()->route('attindex');
+    }
+
+    public function insertAtt(Request $request, $id)
+    {
+        $event = Event::findOrFail($id);
+        $data = new Attendance();
+
+        $data->user_id = Auth::user()->id;
+        $data->event_id = ($event->id);
+        $data->check_in = (date('Y-m-d H:i:s', time()));
+        DB::table('events')->where('id', '=', $event->id)->decrement('capacity', 1);
+
+        if($data->save()) {
+            $request->session()->flash('success',  $event->name.' event has been recorded.');
+        }
+        else {
+            $request->session()->flash('error', 'Event not recorded. There was an error.');
+        }
+
+        return redirect('/attendance');
     }
 
     public function Calendar()
@@ -55,6 +100,11 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'start-date' => 'required|before:end-date',
+            'end-date' => 'required',
+        ]);
+
         $event = auth()->user();
 
         $data = new Event();
@@ -66,8 +116,8 @@ class EventController extends Controller
         $data->capacity = $request->input('capacity');
         $data->start = $request->input('start-date');
         $data->status = 'on-going';
-        //$data->end = $request->input('start-date');
-        $data->end = $this->dateAddHour($request->input('start-date'), 2);
+        $data->end = $request->input('end-date');
+        //$data->end = $this->dateAddHour($request->input('start-date'), 2);
 
         if($data->save()) {
             $request->session()->flash('success',  $data->name.' event has been inserted.');
@@ -108,19 +158,17 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event, $id)
+    public function update(Request $request, Event $event)
     {
-        $event = Event::findOrFail($id);
-//
-//        $event->name = $request->name;
-//        $event->description = $request->description;
-//        $event->venue = $request->venue;
-//        $event->capacity = $request->capacity;
+        $event = Event::findOrFail($request->eveid);
+
+        $this->validate($request, [
+            'startdate' => 'required|before:enddate',
+            'enddate' => 'required',
+        ]);
+
         $event->start = $request->startdate;
-//
-//        $event->save();
-//
-//        return redirect()->route('events.index', compact('event'));
+        $event->end = $request->enddate;
 
         $event->update($request->all());
 
@@ -140,8 +188,17 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy(Event $event, Request $request, $id)
     {
-        //
+        $event = Event::findOrFail($id);
+
+        if($event->delete()) {
+            $request->session()->flash('success',  $event->name.' deleted successfully');
+        }
+        else {
+            $request->session()->flash('error', 'Event not Deleted. There was an error.');
+        }
+
+        return redirect()->route('event');
     }
 }

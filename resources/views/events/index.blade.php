@@ -4,6 +4,17 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="card">
                     <div class="card-header">Events
 
@@ -34,13 +45,7 @@
                                             <label for="name-label" class="col-md-4 col-form-label text-md-right">Name</label>
 
                                             <div class="col-md-6">
-                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
+                                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                                             </div>
                                         </div>
 
@@ -48,13 +53,7 @@
                                             <label for="description-label" class="col-md-4 col-form-label text-md-right">Description</label>
 
                                             <div class="col-md-6">
-                                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autocomplete="description">
-
-                                                @error('description')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
+                                                <input id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autocomplete="description">
                                             </div>
                                         </div>
 
@@ -65,9 +64,7 @@
                                                 <input id="venue" type="text" class="form-control @error('venue') is-invalid @enderror" name="venue" required autocomplete="venue">
 
                                                 @error('venue')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -76,13 +73,7 @@
                                             <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Capacity</label>
 
                                             <div class="col-md-6">
-                                                <input id="capacity" type="text" class="form-control @error('capacity') is-invalid @enderror" name="capacity" required autocomplete="capacity">
-
-                                                @error('capacity')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
+                                                <input id="capacity" type="number" min="1" max="200" class="form-control" name="capacity" required autocomplete="capacity">
                                             </div>
                                         </div>
 
@@ -90,7 +81,21 @@
                                             <label for="start-date-label" class="col-md-4 col-form-label text-md-right">Start</label>
 
                                             <div class="col-md-6">
-                                                <input id="start-date" type="datetime-local" name="start-date" min="2020-11-01T00:00" max="2022-01-01T00:00">
+                                                <input id="start-date" class="@error('start-date') is-invalid @enderror" type="datetime-local" name="start-date" min="2020-11-01T00:00" max="2022-01-01T00:00">
+                                                @error('start-date')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="end-date-label" class="col-md-4 col-form-label text-md-right">End</label>
+
+                                            <div class="col-md-6">
+                                                <input id="end-date" class="@error('end-date') is-invalid @enderror" type="datetime-local" name="end-date" min="2020-11-01T00:00" max="2022-01-01T00:00">
+                                                @error('end-date')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -117,11 +122,9 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <input type="hidden" name="eveid" id="eveid" value="">
 
-                                        @foreach($events as $evees)
-                                    <form method="POST" action="{{ route('edit-event', $evees->id) }}">
-                                        @endforeach
+                                    <form method="POST" action="/event/" >
+                                        <input type="hidden" name="eveid" id="eveid" value="">
                                         @csrf
                                         {{ method_field('PUT') }}
 
@@ -129,13 +132,7 @@
                                             <label for="name-label" class="col-md-4 col-form-label text-md-right">Name</label>
 
                                             <div class="col-md-6">
-                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
+                                                <input id="name" type="text" class="form-control" name="name" value="" required autocomplete="name" autofocus>
                                             </div>
                                         </div>
 
@@ -143,13 +140,7 @@
                                             <label for="description-label" class="col-md-4 col-form-label text-md-right">Description</label>
 
                                             <div class="col-md-6">
-                                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autocomplete="description">
-
-                                                @error('description')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
+                                                <input id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autocomplete="description">
                                             </div>
                                         </div>
 
@@ -160,9 +151,7 @@
                                                 <input id="venue" type="text" class="form-control @error('venue') is-invalid @enderror" name="venue" required autocomplete="venue">
 
                                                 @error('venue')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -171,20 +160,31 @@
                                             <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Capacity</label>
 
                                             <div class="col-md-6">
-                                                <input id="capacity" type="text" class="form-control @error('capacity') is-invalid @enderror" name="capacity" required autocomplete="capacity">
-
-                                                @error('capacity')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
+                                                <input id="capacity" type="number" min="1" max="200" class="form-control" name="capacity" required autocomplete="capacity">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label for="start-date-label" class="col-md-4 col-form-label text-md-right">Start</label>
                                             <div class="col-md-6">
-                                                <input id="start-date" type="datetime-local" name="startdate" min="2020-11-01T00:00" max="2022-01-01T00:00">
+                                                <input id="start-date" class="@error('start-date') is-invalid @enderror" type="datetime-local" name="startdate" min="2020-11-01T00:00" max="2022-01-01T00:00">
+
+                                                @error('start-date')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="end-date-label" class="col-md-4 col-form-label text-md-right">End</label>
+                                            <div class="col-md-6">
+                                                <input id="end-date" class="@error('end-date') is-invalid @enderror" type="datetime-local" name="enddate" min="2020-11-01T00:00" max="2022-01-01T00:00">
+
+                                                @error('end-date')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -209,7 +209,8 @@
                                 <th scope="col">Start</th>
                                 <th scope="col">End</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -220,17 +221,24 @@
                                 <td>{{ $eve->description }}</td>
                                 <td>{{ $eve->venue }}</td>
                                 <td>{{ $eve->capacity }}</td>
-                                <td>{{ date('d/m/Y H:i:s A', strtotime($eve->start)) }}</td>
-                                <td>{{ date('d/m/Y H:i:s A', strtotime($eve->end)) }}</td>
+                                <td>{{ date('d/m/Y H:i A', strtotime($eve->start)) }}</td>
+                                <td>{{ date('d/m/Y H:i A', strtotime($eve->end)) }}</td>
                                 @if(new DateTime() > new DateTime($eve->end))
                                     <td>Past</td>
                                 @elseif (new DateTime($eve->start) <> new DateTime($eve->end))
-                                    <td>{{ $eve->status }}</td>
+                                    <td>On-Going</td>
                                 @else
                                     <td>Not Past</td>
                                 @endif
                                 <td>
-                                    <button data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
+                                    <button data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end) ) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
+                                </td>
+                                <td>
+                                    <form method="POST" action="/event/{{ $eve->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                        <button type="submit" class="btn btn-warning">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

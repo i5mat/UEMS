@@ -26,9 +26,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/cert', [UsersController::class, 'indexCert'])->name('cert');
 Route::post('/cert/{id}', [UsersController::class, 'certificate']);
 
-Route::get('/event', [EventController::class, 'index'])->name('event');
-Route::post('/reg-event', [EventController::class, 'store'])->name('reg-event');
-Route::put('/event/{id}', [EventController::class, 'update'])->name('edit-event');
+Route::get('/event', [EventController::class, 'index'])->name('event')->middleware('can:manage-users');
+Route::post('/reg-event', [EventController::class, 'store'])->name('reg-event')->middleware('can:manage-users');
+Route::put('/event', [EventController::class, 'update'])->name('edit-event')->middleware('can:manage-users');
+Route::delete('/event/{id}', [EventController::class, 'destroy'])->name('del-event')->middleware('can:manage-users');
+
+Route::get('/attendance', [EventController::class, 'attendanceindex'])->name('attindex');
+Route::post('/attendance/reg/{id}', [EventController::class, 'insertAtt'])->name('attindex-reg');
+Route::delete('/attendance/del/{id}', [EventController::class, 'delAtt'])->name('attindex-del');
 
 Route::get('/calendar', [EventController::class, 'Calendar'])->name('calendar');
 
