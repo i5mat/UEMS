@@ -17,7 +17,6 @@
                                 <th scope="col">Roles</th>
                                 <th scope="col">Actions</th>
                                 <th scope="col">Del</th>
-                                <th scope="col">Cert</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -38,14 +37,6 @@
                                         @csrf
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-warning">Delete</button>
-                                        </form>
-                                    @endcan
-                                </td>
-                                <td>
-                                    @can('delete-users')
-                                        <form action="/cert/{{ $user->id }}" method="POST" class="float-left">
-                                            @csrf
-                                            <button type="submit" class="btn btn-outline-info">Cert</button>
                                         </form>
                                     @endcan
                                 </td>

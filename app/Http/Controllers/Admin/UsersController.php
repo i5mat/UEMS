@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Event;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -35,24 +37,23 @@ class UsersController extends Controller
 
     public function certificate($id)
     {
-        $users = User::findOrFail($id);
+        $event = Event::findOrFail($id);
+
         header('content-type: image/jpeg');
         $font=realpath('../public/arial.ttf');
         $image=imagecreatefromjpeg("../public/format.jpg");
         $color=imagecolorallocate($image, 51, 51, 102);
         $date=date('d F, Y');
         imagettftext($image, 18, 0, 880, 188, $color,$font, $date);
-        //$test = Auth::user()->name;
-        $test = $users->name;
-        //$name="NURUL IZZATI SUHAIMI";
-        $course="FUN RUN MELAKA V2 2020";
+        $test = Auth::user()->name;
+        $course = $event->name;
         imagettftext($image, 45, 0, 120, 520, $color,$font, $test);
         imagettftext($image, 40, 0, 120, 640, $color,$font, $course);
         imagejpeg($image,"../public/$test.jpg");
         //imagejpeg($image);
         //imagedestroy($image);
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('attindex')->with('success', ' Cert has been created. Check at Public folder.');
     }
 
     /**

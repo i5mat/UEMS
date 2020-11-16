@@ -29,8 +29,14 @@ class EventController extends Controller
     public function attendanceindex()
     {
         $event = Event::all();
+        $aList = DB::table('attendances')
+            ->join('events', 'events.id', '=', 'attendances.event_id')
+            ->join('users', 'users.id', '=', 'attendances.user_id')
+            ->select('events.id', 'events.name', 'attendances.check_in', 'attendances.user_id', 'events.end',
+                'events.start')
+            ->where('attendances.user_id', Auth::id())->get();
 
-        return view('attendance.index', compact('event'));
+        return view('attendance.index', compact('event', 'aList'));
     }
 
     public function delAtt($id, Request $request, Attendance $att)
