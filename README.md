@@ -1,4 +1,7 @@
-<p align="center"></p>
+<div align="center">
+<img src=https://newfastuff.com/wp-content/uploads/2019/05/bW7QXVB.png" >
+<p>Perfectly balanced</p>
+</div>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
