@@ -26,6 +26,50 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
+    public function checkQrcode(Request $request)
+    {
+
+
+
+        //('Access-Control-Allow-Origin: *');
+        $msg='';
+        if($request->data){
+            //$user = Event::where('id', $request->data)->first();
+            $event = Event::findOrFail($request->data);
+            $data = new Attendance();
+            if($event){
+
+                if($event->capacity > 0){
+                    $event->capacity--;
+
+
+                    $msg=['capacity'=>$event->capacity];
+                    $data->user_id = Auth::user()->id;
+                    $data->event_id = ($event->id);
+                    $data->check_in = (date('Y-m-d H:i:s', time()));
+                    DB::table('events')->where('id', '=', $event->id)->decrement('capacity', 1);
+
+
+                    $info = "ok";
+
+                }else{
+                    $msg="Access refuse";
+
+
+                }
+
+                $data->save();
+
+
+            }else{
+                $msg='Qrcode invalid';
+            }
+        }else{
+            $msg='err.';
+        }
+        return response()->json(['msg'=>$msg,'info'=>$info ?? '']);
+    }
+
     public function attendanceindex()
     {
         $event = Event::all();
@@ -75,9 +119,9 @@ class EventController extends Controller
         return redirect('/attendance');
     }
 
-    public function Calendar()
+    public function QR()
     {
-        return view('events.calendar');
+        return view('events.qrcode');
     }
 
     /**

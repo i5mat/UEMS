@@ -211,6 +211,7 @@
                                 <th scope="col">Status</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -239,6 +240,9 @@
                                     @method('DELETE')
                                         <button type="submit" class="btn btn-warning">Delete</button>
                                     </form>
+                                </td>
+                                <td>
+                                    {!! QrCode::size(100)->generate($eve->id); !!}
                                 </td>
                             </tr>
                             @endforeach
