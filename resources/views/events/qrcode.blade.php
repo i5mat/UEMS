@@ -19,11 +19,11 @@
                 if(response.info=='ok'){
                     scanner.stop()
                     $('#nbre').html(response.msg.capacity)
-                    alert("ATTENDANCE RECORDED", "OK !", "success");
-                    //window.location.replace("http://localhost:8000/qr");
+                    alert("ATTENDANCE RECORDED");
+                    window.location.replace("http://localhost:8000/qr");
 
                 }else{
-                    alert("NOT RECORDED, EXISTING", "OK !", "error");
+                    alert("NOT RECORDED, EXISTING");
                 }
                 console.log(response.msg)
             })

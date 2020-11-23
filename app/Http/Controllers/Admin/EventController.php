@@ -28,44 +28,35 @@ class EventController extends Controller
 
     public function checkQrcode(Request $request)
     {
-
-
-
-        //('Access-Control-Allow-Origin: *');
         $msg='';
         if($request->data){
-            //$user = Event::where('id', $request->data)->first();
-            $event = Event::findOrFail($request->data);
-            $data = new Attendance();
-            if($event){
-
-                if($event->capacity > 0){
-                    $event->capacity--;
+            $eve = Event::where('id',$request->data)->first();
+            $att = Attendance::where('user_id', Auth::user()->id)->where('event_id', $request->data)->count();
+            if($eve){
 
 
-                    $msg=['capacity'=>$event->capacity];
+
+                if($eve->capacity > 0 AND $att == 0){
+                    $data = new Attendance();
                     $data->user_id = Auth::user()->id;
-                    $data->event_id = ($event->id);
+                    $data->event_id = ($eve->id);
                     $data->check_in = (date('Y-m-d H:i:s', time()));
-                    DB::table('events')->where('id', '=', $event->id)->decrement('capacity', 1);
+                    DB::table('events')->where('id', '=', $eve->id)->decrement('capacity', 1);
+                    //$eve->capacity--;
 
 
+                    $msg=['nbre_visite'=>$eve->capacity];
+                    $data->save();
                     $info = "ok";
 
-                }else{
-                    $msg="Access refuse";
-
-
+                }elseif($att == 1){
+                    $msg="Accès refuse";
                 }
-
-                $data->save();
-
-
             }else{
-                $msg='Qrcode invalid';
+                $msg='Qrcode invalide';
             }
         }else{
-            $msg='err.';
+            $msg='erreur';
         }
         return response()->json(['msg'=>$msg,'info'=>$info ?? '']);
     }
