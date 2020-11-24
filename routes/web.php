@@ -30,7 +30,7 @@ Route::get('/event', [EventController::class, 'index'])->name('event')->middlewa
 Route::post('/reg-event', [EventController::class, 'store'])->name('reg-event')->middleware('can:manage-users');
 Route::put('/event', [EventController::class, 'update'])->name('edit-event')->middleware('can:manage-users');
 Route::delete('/event/{id}', [EventController::class, 'destroy'])->name('del-event')->middleware('can:manage-users');
-Route::get('/qr', [EventController::class, 'QR'])->name('test');
+Route::get('/qr', [EventController::class, 'QR'])->name('qrscanner');
 Route::post('/api/scan',[EventController::class, 'checkQrcode'])->name('scanqr.post');
 
 Route::get('/attendance', [EventController::class, 'attendanceindex'])->name('attindex');

@@ -45,18 +45,19 @@ class EventController extends Controller
                     //$eve->capacity--;
 
 
-                    $msg=['nbre_visite'=>$eve->capacity];
+                    $msg=['capacity'=>$eve->capacity, 'event_desc'=>$eve->description, 'status'=>'success'];
                     $data->save();
                     $info = "ok";
 
                 }elseif($att == 1){
-                    $msg="Accès refuse";
+                    $msg="ACCESS DENIED";
+                    $info = "ko";
                 }
             }else{
-                $msg='Qrcode invalide';
+                $msg='QR INVALID';
             }
         }else{
-            $msg='erreur';
+            $msg='ERROR';
         }
         return response()->json(['msg'=>$msg,'info'=>$info ?? '']);
     }
