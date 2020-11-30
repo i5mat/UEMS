@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Attendance;
+use App\Transaction;
 use DateTime;
 use App\Event;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function Sodium\add;
+use function Sodium\increment;
 
 class EventController extends Controller
 {
@@ -22,8 +24,13 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
+        $eventList = DB::table('event_type')->get();
+        $aList = DB::table('events')
+            ->join('event_type', 'event_type.id', '=', 'events.event_type_id')
+            ->select('event_type.name AS event_type', 'events.name', 'events.description', 'events.venue', 'events.capacity',
+                'events.start', 'events.end', 'events.id')->get();
 
-        return view('events.index', compact('events'));
+        return view('events.index', compact('events', 'eventList', 'aList'));
     }
 
     public function checkQrcode(Request $request)
@@ -32,34 +39,65 @@ class EventController extends Controller
         if($request->data){
             $eve = Event::where('id',$request->data)->first();
             $att = Attendance::where('user_id', Auth::user()->id)->where('event_id', $request->data)->count();
-            if($eve){
-
-
-
-                if($eve->capacity > 0 AND $att == 0){
+            if($eve)
+            {
+                if($eve->capacity > 0 AND $att == 0 AND new DateTime() < new DateTime($eve->end))
+                {
                     $data = new Attendance();
                     $data->user_id = Auth::user()->id;
                     $data->event_id = ($eve->id);
                     $data->check_in = (date('Y-m-d H:i:s', time()));
                     DB::table('events')->where('id', '=', $eve->id)->decrement('capacity', 1);
-                    //$eve->capacity--;
+                    DB::table('users')->where('id', '=', $data->user_id)->increment('point', 3);
 
+                    $data2 = new Transaction();
+                    $data2->user_id = Auth::user()->id;
+                    $data2->description = 'POINT ACQUIRE FROM '.$eve->name;
+                    $data2->point = 3;
 
-                    $msg=['capacity'=>$eve->capacity, 'event_desc'=>$eve->description, 'status'=>'success'];
                     $data->save();
+                    $data2->save();
+
+                    $msg=['capacity'=>$eve->capacity, 'event_desc'=>$eve->description, 'status'=>'Success'];
                     $info = "ok";
 
-                }elseif($att == 1){
+                }elseif($att == 1) {
                     $msg="ACCESS DENIED";
                     $info = "ko";
                 }
-            }else{
+                elseif (new DateTime() > new DateTime($eve->end)) {
+                    $msg="Event DateTime Passed";
+                    $info = "passed";
+                }
+            }else {
                 $msg='QR INVALID';
             }
-        }else{
+        }else {
             $msg='ERROR';
         }
         return response()->json(['msg'=>$msg,'info'=>$info ?? '']);
+    }
+
+    public function viewParticipants($id)
+    {
+        $event = Event::findOrFail($id);
+        $bList = DB::table('attendances')
+            ->join('users', 'users.id', '=', 'attendances.user_id')
+            ->join('events', 'events.id', '=', 'attendances.event_id')
+            ->select('users.name AS user_name', 'events.name AS event_name', 'users.id')
+            ->where('attendances.event_id', $event->id)->get();
+
+        return view('attendance.participant', compact('bList'));
+    }
+
+    public function viewTransactions()
+    {
+        $bList = DB::table('transaction')
+            ->join('users', 'users.id', '=', 'transaction.user_id')
+            ->select('transaction.description', 'transaction.id', 'transaction.created_at', 'transaction.point AS user_point')
+            ->where('transaction.user_id', Auth::id())->get();
+
+        return view('transactions.index', compact('bList'));
     }
 
     public function attendanceindex()
@@ -80,6 +118,18 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $att = Attendance::where('user_id', '=', Auth::user()->id)->where('event_id', '=', $event->id)->first();
         DB::table('events')->where('id', '=', $event->id)->increment('capacity', 1);
+        DB::table('users')->where('id', '=', $att->user_id)->decrement('point', 3);
+        $p = DB::table('transaction')
+            ->join('users', 'users.id', '=', 'transaction.user_id')
+            ->where('transaction.user_id', Auth::id())->first();
+
+        //DB::table('users')->where('id', '=', $att->user_id)->decrement('point', 3);
+        $data2 = new Transaction();
+        $data2->user_id = Auth::user()->id;
+        $data2->description = 'WITHDRAW FROM '.$event->name.'. Current Point : '.$p->point;
+        $data2->point = '-3';
+
+        $data2->save();
 
         if($att->delete()) {
             $request->session()->flash('success',  $event->name.' deleted successfully');
@@ -100,9 +150,15 @@ class EventController extends Controller
         $data->event_id = ($event->id);
         $data->check_in = (date('Y-m-d H:i:s', time()));
         DB::table('events')->where('id', '=', $event->id)->decrement('capacity', 1);
+        DB::table('users')->where('id', '=', $data->user_id)->increment('point', 3);
 
-        if($data->save()) {
-            $request->session()->flash('success',  $event->name.' event has been recorded.');
+        $data2 = new Transaction();
+        $data2->user_id = Auth::user()->id;
+        $data2->description = 'POINT ACQUIRE FROM '.$event->name;
+        $data2->point = 3;
+
+        if($data->save() AND $data2->save()) {
+            $request->session()->flash('success',  $event->name.' event has been recorded. Point is recorded.');
         }
         else {
             $request->session()->flash('error', 'Event not recorded. There was an error.');
@@ -159,6 +215,7 @@ class EventController extends Controller
         $data->start = $request->input('start-date');
         $data->status = 'on-going';
         $data->end = $request->input('end-date');
+        $data->event_type_id = $request->input('event_types');
         //$data->end = $this->dateAddHour($request->input('start-date'), 2);
 
         if($data->save()) {

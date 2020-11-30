@@ -5,6 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+
                     <div class="card-header">Attendance</div>
 
                     <div class="card-body">
@@ -48,7 +49,7 @@
                                         @elseif (App\Attendance::where('user_id', '=', Auth::user()->id)->where('event_id', '=', $e->id)->exists())
                                             Attendance Recorded
                                         @elseif (new DateTime($e->start) <> new DateTime($e->end))
-                                            Event On-Going
+                                            Event Not Available
                                         @else
                                             Future Event
                                         @endif

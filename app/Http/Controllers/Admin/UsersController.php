@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Attendance;
 use App\Event;
 use App\Http\Controllers\Controller;
 use App\Role;
@@ -40,8 +41,8 @@ class UsersController extends Controller
         $event = Event::findOrFail($id);
 
         header('content-type: image/jpeg');
-        $font=realpath('../public/arial.ttf');
-        $image=imagecreatefromjpeg("../public/format.jpg");
+        $font=realpath('public/cert/arial.ttf');
+        $image=imagecreatefromjpeg("public/cert/format.jpg");
         $color=imagecolorallocate($image, 51, 51, 102);
         $date=date('d F, Y');
         imagettftext($image, 18, 0, 880, 188, $color,$font, $date);
@@ -49,9 +50,7 @@ class UsersController extends Controller
         $course = $event->name;
         imagettftext($image, 45, 0, 120, 520, $color,$font, $test);
         imagettftext($image, 40, 0, 120, 640, $color,$font, $course);
-        imagejpeg($image,"../public/$test.jpg");
-        //imagejpeg($image);
-        //imagedestroy($image);
+        imagejpeg($image,"public/cert/$test $course.jpg");
 
         return redirect()->route('attindex')->with('success', ' Cert has been created. Check at Public folder.');
     }

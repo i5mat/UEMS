@@ -78,6 +78,21 @@
                                         </div>
 
                                         <div class="form-group row">
+                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event Type</label>
+
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="event_types">
+                                                    <option>Select Event Type</option>
+                                                    @foreach ($eventList as $eList)
+                                                        <option value="{{ $eList->id }}">
+                                                            {{ $eList->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <label for="start-date-label" class="col-md-4 col-form-label text-md-right">Start</label>
 
                                             <div class="col-md-6">
@@ -165,6 +180,21 @@
                                         </div>
 
                                         <div class="form-group row">
+                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event Type</label>
+
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="event_types">
+                                                    <option>Select Event Type</option>
+                                                    @foreach ($eventList as $eList)
+                                                        <option value="{{ $eList->id }}">
+                                                            {{ $eList->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <label for="start-date-label" class="col-md-4 col-form-label text-md-right">Start</label>
                                             <div class="col-md-6">
                                                 <input id="start-date" class="@error('start-date') is-invalid @enderror" type="datetime-local" name="startdate" min="2020-11-01T00:00" max="2022-01-01T00:00">
@@ -206,6 +236,7 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Venue</th>
                                 <th scope="col">Capacity</th>
+                                <th scope="col">Event Type</th>
                                 <th scope="col">Start</th>
                                 <th scope="col">End</th>
                                 <th scope="col">Status</th>
@@ -215,13 +246,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($events as $eve)
+                            @foreach($aList as $eve)
                             <tr>
                                 <th scope="row">{{ $eve->id }}</th>
                                 <td>{{ $eve->name }}</td>
                                 <td>{{ $eve->description }}</td>
                                 <td>{{ $eve->venue }}</td>
                                 <td>{{ $eve->capacity }}</td>
+                                <td>{{ $eve->event_type }}</td>
                                 <td>{{ date('d/m/Y H:i A', strtotime($eve->start)) }}</td>
                                 <td>{{ date('d/m/Y H:i A', strtotime($eve->end)) }}</td>
                                 @if(new DateTime() > new DateTime($eve->end))
@@ -232,7 +264,7 @@
                                     <td>Not Past</td>
                                 @endif
                                 <td>
-                                    <button data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end) ) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
+                                    <button data-myeventtype="{{ $eve->event_type }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
                                 </td>
                                 <td>
                                     <form method="POST" action="/event/{{ $eve->id }}">

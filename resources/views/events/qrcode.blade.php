@@ -6,8 +6,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Attendance</div>
-                        <button class="btn btn-outline-primary" onclick="scan()" >Scanner Mon Qrcode</button>
+                    <div class="card-header">Attendance</div><br>
+                        <button class="btn btn-outline-primary" id="openBtn" onclick="scan()" >Open QR Scanner</button>
 
                     <div class="card-body">
                         <video id="preview"></video><br>

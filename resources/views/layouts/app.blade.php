@@ -80,6 +80,10 @@
                                         QR Attendance
                                     </a>
 
+                                    <a class="dropdown-item" href="{{ route('vT') }}">
+                                        Points History
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -106,8 +110,6 @@
     </div>
 
 <script src="{{asset('js/app.js')}}"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script>
     $('#exampleModalCenter2').on('show.bs.modal', function (event) {
 
@@ -121,6 +123,7 @@
         var cap = button.data('cap') // Extract info from data-* attributes
         var start = button.data('mystart') // Extract info from data-* attributes
         var end = button.data('myend') // Extract info from data-* attributes
+        var event_type = button.data('myeventtype') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
@@ -133,16 +136,20 @@
         modal.find('.modal-body #capacity').val(cap);
         modal.find('.modal-body #startdate').val(start);
         modal.find('.modal-body #enddate').val(end);
+        modal.find('.modal-body #event_types').val(event_type);
     })
 </script>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script type="text/javascript">
         function scan() {
+        document.getElementById("openBtn").disabled = true;
         let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
         scanner.addListener('scan', function (content) {
             console.log(content);
             if(content!=''){
-                $.post('http://localhost:8000/api/scan',{data:content, "_token": "{{ csrf_token() }}",},function(response){
+                $.post('https://uems.test/api/scan',{data:content, "_token": "{{ csrf_token() }}",},function(response){
                     if(response.info=='ok'){
                         scanner.stop()
                         $('#nbre').html(response.msg.capacity)
@@ -153,6 +160,8 @@
 
                     }else if(response.info=='ko'){
                         alert("ATTENDANCE HAVE ALREADY BEEN RECORDED. PLEASE TRY AGAIN");
+                    }else if(response.info=='passed'){
+                        alert("Event DateTime Passed. Please SCAN for a VALID event.");
                     }
                     else
                         alert("QR IS INVALID. PLEASE TRY AGAIN");
