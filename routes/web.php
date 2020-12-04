@@ -41,6 +41,8 @@ Route::delete('/attendance/del/{id}', [EventController::class, 'delAtt'])->name(
 Route::get('/participants/{id}', [EventController::class, 'viewParticipants'])->name('vP');
 Route::get('/transaction', [EventController::class, 'viewTransactions'])->name('vT');
 
+Route::post('/appoint/reg', [EventController::class, 'appointAdd'])->name('reg-appoint');
+
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
 });

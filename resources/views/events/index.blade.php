@@ -93,6 +93,21 @@
                                         </div>
 
                                         <div class="form-group row">
+                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event Level</label>
+
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="event_levels">
+                                                    <option>Select Event Level</option>
+                                                    @foreach ($eventLevel as $eLevel)
+                                                        <option value="{{ $eLevel->id }}">
+                                                            {{ $eLevel->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <label for="start-date-label" class="col-md-4 col-form-label text-md-right">Start</label>
 
                                             <div class="col-md-6">
@@ -195,6 +210,21 @@
                                         </div>
 
                                         <div class="form-group row">
+                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event Level</label>
+
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="event_levels">
+                                                    <option>Select Event Level</option>
+                                                    @foreach ($eventLevel as $eLevel)
+                                                        <option value="{{ $eLevel->id }}">
+                                                            {{ $eLevel->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <label for="start-date-label" class="col-md-4 col-form-label text-md-right">Start</label>
                                             <div class="col-md-6">
                                                 <input id="start-date" class="@error('start-date') is-invalid @enderror" type="datetime-local" name="startdate" min="2020-11-01T00:00" max="2022-01-01T00:00">
@@ -227,8 +257,67 @@
                         </div>
                     </div>
 
+                    <!-- Modal 3 -->
+                    <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Add an Assignation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <form method="POST" action="/appoint/reg" >
+                                        @csrf
+                                        {{ method_field('POST') }}
+
+                                        <div class="form-group row">
+                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">User</label>
+
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="uems_users" id="uems_users">
+                                                    <option>Select Which User</option>
+                                                    @foreach ($users as $user)
+                                                        <option value="{{ $user->id }}">
+                                                            {{ $user->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Role</label>
+
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="uems_roles" id="uems_roles">
+                                                    <option>Select Role</option>
+                                                    @foreach ($roles as $role)
+                                                        <option value="{{ $role->id }}">
+                                                            {{ $role->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for event names.." title="Type in a name">
                     <div class="card-body overflow-auto">
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="myTable">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -237,9 +326,12 @@
                                 <th scope="col">Venue</th>
                                 <th scope="col">Capacity</th>
                                 <th scope="col">Event Type</th>
+                                <th scope="col">Event Level</th>
                                 <th scope="col">Start</th>
                                 <th scope="col">End</th>
                                 <th scope="col">Status</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
@@ -254,6 +346,7 @@
                                 <td>{{ $eve->venue }}</td>
                                 <td>{{ $eve->capacity }}</td>
                                 <td>{{ $eve->event_type }}</td>
+                                <td>{{ $eve->event_level }}</td>
                                 <td>{{ date('d/m/Y H:i A', strtotime($eve->start)) }}</td>
                                 <td>{{ date('d/m/Y H:i A', strtotime($eve->end)) }}</td>
                                 @if(new DateTime() > new DateTime($eve->end))
@@ -274,6 +367,12 @@
                                     </form>
                                 </td>
                                 <td>
+                                    <a href="{{ route('vP', $eve->id) }}"> <button type="button" class="btn btn-success float-left">View</button> </a>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter3">Assignation</button>
+                                </td>
+                                <td>
                                     {!! QrCode::size(100)->generate($eve->id); !!}
                                 </td>
                             </tr>
@@ -282,7 +381,52 @@
                         </table>
                     </div>
                 </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-header">Reporting</div>
+
+                        <div class="card-body">
+                            <div id="c"></div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
+
+    <script type="application/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var k = @json($kira->count());
+            var k2 = @json($kira2->count());
+            var k3 = @json($kira3->count());
+
+            Highcharts.chart('c', {
+
+                chart: {
+                    styledMode: true
+                },
+
+                title: {
+                    text: 'Total Reports Based on Types'
+                },
+
+                xAxis: {
+                    categories: ['Nudity or sexual activity', 'Hate speech or symbols', 'False information']
+                },
+
+                series: [{
+                    type: 'pie',
+                    allowPointSelect: true,
+                    keys: ['name', 'y', 'selected', 'sliced'],
+                    data: [
+                        ['Nudity or sexual activity', k, false],
+                        ['Hate speech or symbols', k2, false],
+                        ['False information', k3, false]
+                    ],
+                    showInLegend: true
+                }]
+            });
+
+        });
+    </script>
 @endsection

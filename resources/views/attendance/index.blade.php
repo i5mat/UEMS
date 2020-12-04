@@ -48,8 +48,8 @@
                                             Event DateTime Passed
                                         @elseif (App\Attendance::where('user_id', '=', Auth::user()->id)->where('event_id', '=', $e->id)->exists())
                                             Attendance Recorded
-                                        @elseif (new DateTime($e->start) <> new DateTime($e->end))
-                                            Event Not Available
+                                        @elseif (new DateTime(now()) <> new DateTime($e->start) AND new DateTime($e->end))
+                                            Event On-Going
                                         @else
                                             Future Event
                                         @endif
