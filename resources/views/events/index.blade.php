@@ -381,52 +381,7 @@
                         </table>
                     </div>
                 </div>
-                    <br>
-                    <div class="card">
-                        <div class="card-header">Reporting</div>
-
-                        <div class="card-body">
-                            <div id="c"></div>
-                        </div>
-                    </div>
             </div>
         </div>
     </div>
-
-    <script type="application/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-
-            var k = @json($kira->count());
-            var k2 = @json($kira2->count());
-            var k3 = @json($kira3->count());
-
-            Highcharts.chart('c', {
-
-                chart: {
-                    styledMode: true
-                },
-
-                title: {
-                    text: 'Total Reports Based on Types'
-                },
-
-                xAxis: {
-                    categories: ['Nudity or sexual activity', 'Hate speech or symbols', 'False information']
-                },
-
-                series: [{
-                    type: 'pie',
-                    allowPointSelect: true,
-                    keys: ['name', 'y', 'selected', 'sliced'],
-                    data: [
-                        ['Nudity or sexual activity', k, false],
-                        ['Hate speech or symbols', k2, false],
-                        ['False information', k3, false]
-                    ],
-                    showInLegend: true
-                }]
-            });
-
-        });
-    </script>
 @endsection

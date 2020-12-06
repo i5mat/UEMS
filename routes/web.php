@@ -38,10 +38,11 @@ Route::get('/attendance', [EventController::class, 'attendanceindex'])->name('at
 Route::post('/attendance/reg/{id}', [EventController::class, 'insertAtt'])->name('attindex-reg')->middleware('can:auth-access-user');
 Route::delete('/attendance/del/{id}', [EventController::class, 'delAtt'])->name('attindex-del')->middleware('can:auth-access-user');
 
-Route::get('/participants/{id}', [EventController::class, 'viewParticipants'])->name('vP');
-Route::get('/transaction', [EventController::class, 'viewTransactions'])->name('vT');
+Route::get('/participants/{id}', [EventController::class, 'viewParticipants'])->name('vP')->middleware('can:auth-access-user');
+Route::get('/transaction', [EventController::class, 'viewTransactions'])->name('vT')->middleware('can:auth-access-user');
 
-Route::post('/appoint/reg', [EventController::class, 'appointAdd'])->name('reg-appoint');
+Route::post('/appoint/reg', [EventController::class, 'appointAdd'])->name('reg-appoint')->middleware('can:auth-access-user');
+Route::get('/report', [EventController::class, 'reportIndex'])->name('reporting')->middleware('can:auth-access-user');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);

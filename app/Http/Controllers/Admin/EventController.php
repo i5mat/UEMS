@@ -35,22 +35,126 @@ class EventController extends Controller
             ->select('event_type.name AS event_type', 'event_level.name AS event_level', 'events.name', 'events.description', 'events.venue', 'events.capacity',
                 'events.start', 'events.end', 'events.id')->get();
 
-        $kira = DB::table('EVENTS')
-            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
-            ->where('EVENTS.USER_ID','=','1')
+        return view('events.index', compact('events', 'eventList', 'aList', 'eventLevel', 'users', 'roles'));
+    }
+
+    public function reportIndex()
+    {
+//        $kira = DB::table('EVENTS')
+//            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
+//            ->where('EVENTS.USER_ID','=','1')
+//            ->get();
+//
+//        $kira2 = DB::table('EVENTS')
+//            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
+//            ->where('EVENTS.USER_ID','=','2')
+//            ->get();
+//
+//        $kira3 = DB::table('EVENTS')
+//            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
+//            ->where('EVENTS.USER_ID','=','3')
+//            ->get();
+
+        $evecount1 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','12')
             ->get();
 
-        $kira2 = DB::table('EVENTS')
-            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
-            ->where('EVENTS.USER_ID','=','2')
+        $evecount2 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','11')
             ->get();
 
-        $kira3 = DB::table('EVENTS')
-            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
-            ->where('EVENTS.USER_ID','=','3')
+        $evecount3 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','10')
             ->get();
 
-        return view('events.index', compact('events', 'eventList', 'aList', 'eventLevel', 'users', 'roles', 'kira', 'kira2', 'kira3'));
+        $evecount4 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','9')
+            ->get();
+
+        $evecount5 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','8')
+            ->get();
+
+        $evecount6 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','7')
+            ->get();
+
+        $evecount7 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','6')
+            ->get();
+
+        $evecount8 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','5')
+            ->get();
+
+        $evecount9 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','4')
+            ->get();
+
+        $evecount10 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','3')
+            ->get();
+
+        $evecount11 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','2')
+            ->get();
+
+        $evecount12 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','1')
+            ->get();
+
+        $userscount = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','12')
+            ->get();
+
+        $userscount1 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','11')
+            ->get();
+
+        $userscount2 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','10')
+            ->get();
+
+        $userscount3 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','9')
+            ->get();
+
+        $userscount4 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','8')
+            ->get();
+
+        $userscount5 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','7')
+            ->get();
+
+        $userscount6 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','6')
+            ->get();
+
+        $userscount7 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','5')
+            ->get();
+
+        $userscount8 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','4')
+            ->get();
+
+        $userscount9 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','3')
+            ->get();
+
+        $userscount10 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','2')
+            ->get();
+
+        $userscount11 = DB::table('USERS')
+            ->whereMonth('CREATED_AT','=','1')
+            ->get();
+
+        return view('report.index', compact('evecount1', 'evecount2', 'evecount3', 'evecount4',
+            'evecount5', 'evecount6', 'evecount7', 'evecount8', 'evecount9', 'evecount10', 'evecount11', 'evecount12',
+            'userscount','userscount1','userscount2','userscount3','userscount4','userscount5','userscount6','userscount7','userscount8',
+            'userscount9','userscount10','userscount11'));
     }
 
     public function checkQrcode(Request $request)
