@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Appoint;
 use App\Attendance;
 use App\RoleUser;
 use App\Transaction;
@@ -27,6 +28,8 @@ class EventController extends Controller
         $events = Event::all();
         $users = User::all()->except(1);
         $roles = DB::table('roles')->get()->except(0, 1, 2);
+        $eve = DB::table('events')->get();
+
         $eventList = DB::table('event_type')->get();
         $eventLevel = DB::table('event_level')->get();
         $aList = DB::table('events')
@@ -35,26 +38,11 @@ class EventController extends Controller
             ->select('event_type.name AS event_type', 'event_level.name AS event_level', 'events.name', 'events.description', 'events.venue', 'events.capacity',
                 'events.start', 'events.end', 'events.id')->get();
 
-        return view('events.index', compact('events', 'eventList', 'aList', 'eventLevel', 'users', 'roles'));
+        return view('events.index', compact('events', 'eventList', 'aList', 'eventLevel', 'users', 'roles', 'eve'));
     }
 
     public function reportIndex()
     {
-//        $kira = DB::table('EVENTS')
-//            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
-//            ->where('EVENTS.USER_ID','=','1')
-//            ->get();
-//
-//        $kira2 = DB::table('EVENTS')
-//            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
-//            ->where('EVENTS.USER_ID','=','2')
-//            ->get();
-//
-//        $kira3 = DB::table('EVENTS')
-//            ->join('USERS','EVENTS.USER_ID','=','USERS.ID')
-//            ->where('EVENTS.USER_ID','=','3')
-//            ->get();
-
         $evecount1 = DB::table('EVENTS')
             ->whereMonth('CREATED_AT','=','12')
             ->get();
@@ -242,16 +230,25 @@ class EventController extends Controller
 
     public function appointAdd(Request $request)
     {
+        $data2 = new Appoint();
         $data = new RoleUser();
+
         $data->role_id = $request->input('uems_roles');
         $data->user_id = $request->input('uems_users');
-        $att = RoleUser::where('user_id', $data->user_id)->where('role_id', $data->role_id)->count();
 
-        if($att == 0) {
+        $data2->role_id = $data->role_id;
+        $data2->user_id = $data->user_id;
+        $data2->event_id = $request->input('uems_events');
+
+        $att = RoleUser::where('user_id', $data->user_id)->where('role_id', $data->role_id)->count();
+        $att2 = Appoint::where('user_id', $data2->user_id)->where('role_id', $data2->role_id)->where('event_id', $data2->event_id)->count();
+
+        if($att == 0 && $att2 == 0) {
             $data->save();
+            $data2->save();
             $request->session()->flash('success',  'User Appointment has been inserted.');
         }
-        elseif ($att == 1) {
+        elseif ($att == 1 && $att2 == 1) {
             $request->session()->flash('error', 'There was an error, probably you have assigned the role to the user.');
         }
 
@@ -281,7 +278,7 @@ class EventController extends Controller
             DB::table('users')->where('id', '=', Auth::id())->decrement('point', 10);
             $data2->point = '-10';
         }
-        elseif ($users->user_role == 'PESERTA') {
+        else {
             DB::table('users')->where('id', '=', Auth::id())->decrement('point', 2);
             $data2->point = '-2';
         }
@@ -301,11 +298,19 @@ class EventController extends Controller
 
     public function insertAtt(Request $request, $id)
     {
-        $users = DB::table('users')
-            ->join('role_user', 'role_user.user_id', '=', 'users.id')
-            ->join('roles', 'roles.id', '=', 'role_user.role_id')
-            ->select('roles.name AS user_role')
-            ->where('users.id', Auth::id())->skip(1)->take(2)->first();
+//        $users = DB::table('users')
+//            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+//            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+//            ->select('roles.name AS user_role')
+//            ->where('users.id', Auth::id())->skip(1)->take(2)->first();
+
+        $user = User::findOrFail(Auth::id());
+
+//        $users = DB::table('role_user')
+//            ->join('users', 'users.id', '=', 'role_user.user_id')
+//            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+//            ->select('roles.name AS user_role')
+//            ->where('users.id', Auth::id())->skip(1)->take(2)->first();
 
         $event = Event::findOrFail($id);
         $data = new Attendance();
@@ -319,14 +324,23 @@ class EventController extends Controller
         $data2->user_id = Auth::user()->id;
         $data2->description = 'POINT ACQUIRE FROM '.$event->name;
 
-        if ($users->user_role == 'PENGERUSI') {
+        if ($user->hasRole('admin')) {
             DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
             $data2->point = 10;
         }
-        elseif ($users->user_role == 'PESERTA') {
+        else {
             DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
             $data2->point = 2;
         }
+
+//        if ($users->user_role == 'PENGERUSI') {
+//            DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+//            $data2->point = 10;
+//        }
+//        elseif ($users->user_role == 'PESERTA') {
+//            DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
+//            $data2->point = 2;
+//        }
 
         if($data->save() AND $data2->save()) {
             $request->session()->flash('success',  $event->name.' event has been recorded. Point is recorded.');

@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Points Transaction (Total Point : {{ $cList->point }} )</div>
 
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table class="table">
                             <thead class="thead-dark">
                             <tr>

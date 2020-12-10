@@ -42,7 +42,13 @@ Route::get('/participants/{id}', [EventController::class, 'viewParticipants'])->
 Route::get('/transaction', [EventController::class, 'viewTransactions'])->name('vT')->middleware('can:auth-access-user');
 
 Route::post('/appoint/reg', [EventController::class, 'appointAdd'])->name('reg-appoint')->middleware('can:auth-access-user');
-Route::get('/report', [EventController::class, 'reportIndex'])->name('reporting')->middleware('can:auth-access-user');
+Route::get('/report', [EventController::class, 'reportIndex'])->name('reporting')->middleware('can:manage-users');
+
+Route::post('/files', 'DocumentController@store');
+Route::get('/upload', 'DocumentController@index')->name('show_cert');
+Route::get('/file/download/{file}','DocumentController@download');
+Route::delete('/files/del/{id}', 'DocumentController@destroy');
+
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);

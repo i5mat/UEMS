@@ -148,7 +148,7 @@
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Users Registered with repliGram (n)'
+                        text: 'Users Registered with UEMS (n)'
                     }
                 },
                 tooltip: {

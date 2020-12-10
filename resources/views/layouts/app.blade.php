@@ -152,8 +152,20 @@
                                         Points History
                                     </a>
 
+                                    @can('manage-users')
                                     <a class="dropdown-item" href="{{ route('reporting') }}">
                                         System Reporting
+                                    </a>
+                                    @endcan
+
+                                    @can('student_view')
+                                    <a class="dropdown-item" href="{{ route('reporting') }}">
+                                        Profile
+                                    </a>
+                                    @endcan
+
+                                    <a class="dropdown-item" href="{{ route('show_cert') }}">
+                                        Upload Certificate
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

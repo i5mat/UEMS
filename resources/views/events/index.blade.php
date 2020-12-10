@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-xl-12">
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -19,8 +19,12 @@
                     <div class="card-header">Events
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button type="button" class="btn btn-primary float-right" style="margin:5px;" data-toggle="modal" data-target="#exampleModalCenter">
                         Create Event
+                    </button>
+
+                    <button type="button" class="btn btn-primary float-right" style="margin:5px;" data-toggle="modal" data-target="#exampleModalCenter3">
+                        Assign Role
                     </button>
 
                     </div>
@@ -53,7 +57,7 @@
                                             <label for="description-label" class="col-md-4 col-form-label text-md-right">Description</label>
 
                                             <div class="col-md-6">
-                                                <input id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autocomplete="description">
+                                                <textarea class="form-control" rows="5" name="description" id="description" required autocomplete="description"></textarea>
                                             </div>
                                         </div>
 
@@ -305,6 +309,22 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event</label>
+
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="uems_events" id="uems_events">
+                                                    <option>Select Event</option>
+                                                    @foreach ($eve as $e)
+                                                        <option value="{{ $e->id }}">
+                                                            {{ $e->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -316,7 +336,7 @@
                     </div>
 
                     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for event names.." title="Type in a name">
-                    <div class="card-body overflow-auto">
+                    <div class="card-body table-responsive">
                         <table class="table table-striped" id="myTable">
                             <thead>
                             <tr>
@@ -330,7 +350,6 @@
                                 <th scope="col">Start</th>
                                 <th scope="col">End</th>
                                 <th scope="col">Status</th>
-                                <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
@@ -368,9 +387,6 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('vP', $eve->id) }}"> <button type="button" class="btn btn-success float-left">View</button> </a>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter3">Assignation</button>
                                 </td>
                                 <td>
                                     {!! QrCode::size(100)->generate($eve->id); !!}

@@ -8,7 +8,7 @@
 
                     <div class="card-header">Attendance</div>
 
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table class="table">
                             <thead class="thead-dark">
                             <tr>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="card">
+                <div class="card table-responsive">
                     <div class="card-header">Attendance History</div>
 
                     <div class="card-body">
