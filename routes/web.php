@@ -49,6 +49,8 @@ Route::get('/upload', 'DocumentController@index')->name('show_cert');
 Route::get('/file/download/{file}','DocumentController@download');
 Route::delete('/files/del/{id}', 'DocumentController@destroy');
 
+Route::get('/profile', 'DocumentController@userProfile')->name('user_profile');
+Route::post('/profile/{id}', 'DocumentController@updateProfile')->name('update_profile');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);

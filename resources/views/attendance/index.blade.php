@@ -18,6 +18,7 @@
                                 <th scope="col">Capacity</th>
                                 <th scope="col">Attedance</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">QR</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -53,6 +54,9 @@
                                         @else
                                             Future Event
                                         @endif
+                                    </td>
+                                    <td>
+                                        {!! QrCode::size(150)->generate($e->id); !!}
                                     </td>
                                 </tr>
                             @endforeach

@@ -16,20 +16,22 @@
                 @endif
 
                 <div class="card">
-                    <div class="card-header">Reporting</div>
+                    <div class="card-header">Reporting by Pie Chart</div>
 
                     <div class="card-body">
                         <div id="c"></div>
                     </div>
                 </div><br>
 
+                @can('admin_view')
                 <div class="card">
-                    <div class="card-header">Reporting</div>
+                    <div class="card-header">Reporting by Bar Chart</div>
 
                     <div class="card-body">
                         <div id="userchart"></div>
                     </div>
                 </div>
+                @endcan
             </div>
         </div>
     </div>

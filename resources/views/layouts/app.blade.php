@@ -97,7 +97,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="/image/logo_utem_kecil.png" width="50" height="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -128,39 +128,46 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @can('manage-users')
+
+                                    @can('student_view')
+                                        <a class="dropdown-item" href="{{ route('user_profile') }}">
+                                            Profile
+                                        </a>
+                                    @endcan
+
+                                    @can('admin_view')
                                         <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                             User Management
                                         </a>
                                     @endcan
 
-                                    @can('manage-users')
+                                    @can('admin_organizer_view')
                                     <a class="dropdown-item" href="{{ route('event') }}">
-                                        Event History
-                                    </a>
-                                    @endcan
-
-                                    <a class="dropdown-item" href="{{ route('attindex') }}">
-                                        Attendance
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('qrscanner') }}" onclick="scan()">
-                                        QR Attendance
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('vT') }}">
-                                        Points History
-                                    </a>
-
-                                    @can('manage-users')
-                                    <a class="dropdown-item" href="{{ route('reporting') }}">
-                                        System Reporting
+                                        Event
                                     </a>
                                     @endcan
 
                                     @can('student_view')
+                                    <a class="dropdown-item" href="{{ route('attindex') }}">
+                                        Attendance
+                                    </a>
+                                    @endcan
+
+                                    @can('student_view')
+                                    <a class="dropdown-item" href="{{ route('qrscanner') }}" onclick="scan()">
+                                        QR Attendance
+                                    </a>
+                                    @endcan
+
+                                    @can('student_view')
+                                    <a class="dropdown-item" href="{{ route('vT') }}">
+                                        Points History
+                                    </a>
+                                    @endcan
+
+                                    @can('admin_organizer_view')
                                     <a class="dropdown-item" href="{{ route('reporting') }}">
-                                        Profile
+                                        System Reporting
                                     </a>
                                     @endcan
 

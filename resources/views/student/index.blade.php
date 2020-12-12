@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                @can('manage-users')
+                @can('admin_view')
                 <div class="card">
 
                     <div class="card-header">Show uploaded certificate</div>
@@ -53,7 +53,7 @@
                 </div>
                 @endcan
                 <br>
-                    @can('student_view')
+                    @can('all_except_admin_view')
                         <div class="card">
 
                             <div class="card-header">Show uploaded certificate</div>
@@ -95,10 +95,10 @@
                         </div>
                     @endcan
                 <br>
+
+                @can('all_except_admin_view')
                 <div class="card">
-
                     <div class="card-header">Upload your certificate here!</div>
-
                     <div class="card-body table-responsive">
                         <form action="/files" method="POST" enctype="multipart/form-data">
                             {{csrf_field()}}
@@ -109,6 +109,7 @@
                         </form>
                     </div>
                 </div>
+                @endcan
             </div>
         </div>
     </div>

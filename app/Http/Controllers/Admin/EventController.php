@@ -36,7 +36,7 @@ class EventController extends Controller
             ->join('event_type', 'event_type.id', '=', 'events.event_type_id')
             ->join('event_level', 'event_level.id', '=', 'events.event_level_id')
             ->select('event_type.name AS event_type', 'event_level.name AS event_level', 'events.name', 'events.description', 'events.venue', 'events.capacity',
-                'events.start', 'events.end', 'events.id')->get();
+                'events.start', 'events.end', 'events.id', 'events.user_id AS organizer')->get();
 
         return view('events.index', compact('events', 'eventList', 'aList', 'eventLevel', 'users', 'roles', 'eve'));
     }
@@ -155,17 +155,25 @@ class EventController extends Controller
             {
                 if($eve->capacity > 0 AND $att == 0 AND new DateTime() < new DateTime($eve->end))
                 {
+                    $user = User::findOrFail(Auth::id());
                     $data = new Attendance();
                     $data->user_id = Auth::user()->id;
                     $data->event_id = ($eve->id);
                     $data->check_in = (date('Y-m-d H:i:s', time()));
                     DB::table('events')->where('id', '=', $eve->id)->decrement('capacity', 1);
-                    DB::table('users')->where('id', '=', $data->user_id)->increment('point', 3);
 
                     $data2 = new Transaction();
                     $data2->user_id = Auth::user()->id;
                     $data2->description = 'POINT ACQUIRE FROM '.$eve->name;
-                    $data2->point = 3;
+
+                    if ($user->hasRole('PENGERUSI')) {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+                        $data2->point = 10;
+                    }
+                    else {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
+                        $data2->point = 2;
+                    }
 
                     $data->save();
                     $data2->save();
@@ -257,6 +265,7 @@ class EventController extends Controller
 
     public function delAtt($id, Request $request, Attendance $att)
     {
+        $user = User::findOrFail(Auth::id());
         $users = DB::table('users')
             ->join('role_user', 'role_user.user_id', '=', 'users.id')
             ->join('roles', 'roles.id', '=', 'role_user.role_id')
@@ -274,13 +283,13 @@ class EventController extends Controller
         $data2 = new Transaction();
         $data2->user_id = Auth::user()->id;
 
-        if ($users->user_role == 'PENGERUSI') {
+        if ($user->hasRole('PENGERUSI')) {
             DB::table('users')->where('id', '=', Auth::id())->decrement('point', 10);
-            $data2->point = '-10';
+            $data2->point = -10;
         }
         else {
             DB::table('users')->where('id', '=', Auth::id())->decrement('point', 2);
-            $data2->point = '-2';
+            $data2->point = 2;
         }
 
         $data2->description = 'WITHDRAW FROM '.$event->name.'.';
@@ -324,7 +333,7 @@ class EventController extends Controller
         $data2->user_id = Auth::user()->id;
         $data2->description = 'POINT ACQUIRE FROM '.$event->name;
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('PENGERUSI')) {
             DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
             $data2->point = 10;
         }

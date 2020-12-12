@@ -27,7 +27,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::all()->except(1);
         return view('admin.users.index')->with('users', $users);
     }
 

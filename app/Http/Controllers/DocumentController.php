@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Document;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
@@ -15,7 +17,11 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $bList = DB::table('documents')->where('user_id', '=', \Auth::user()->id)->get();
+        $bList = DB::table('documents')
+            ->join('users', 'users.id', '=', 'documents.user_id')
+            ->select('documents.id AS doc_id', 'documents.description',
+                'users.name AS stud_name', 'documents.title', 'documents.file')
+            ->where('user_id', '=', \Auth::user()->id)->get();
 
         $aList = DB::table('documents')
             ->join('users', 'users.id', '=', 'documents.user_id')
@@ -24,6 +30,13 @@ class DocumentController extends Controller
 
         return view('student.index', compact('aList', 'bList'));
 
+    }
+
+    public function userProfile()
+    {
+        $user = DB::table('users')->where('id', '=', Auth::user()->id)->first();
+
+        return view('student.profile', compact('user'));
     }
 
     /**
@@ -44,7 +57,6 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = new Document();
         if($request->file('file')){
             $file=$request->file('file');
@@ -58,6 +70,24 @@ class DocumentController extends Controller
         $data->user_id = \Auth::id();
         $data->save();
         return redirect()->back();
+
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if($user->save()) {
+            $request->session()->flash('success',  $user->name.' profile updated successfully');
+        }
+        else {
+            $request->session()->flash('error', 'Profile info not updated. There was an error.');
+        }
+
+        return redirect()->route('user_profile');
 
     }
 

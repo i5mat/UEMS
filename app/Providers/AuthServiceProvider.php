@@ -26,11 +26,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('manage-users', function ($user){
-            return $user->hasAnyRoles(['admin', 'author']);
+            return $user->hasAnyRoles(['admin', 'organizer']);
         });
 
         Gate::define('edit-users', function ($user){
-           return $user->hasAnyRoles(['admin', 'author']);
+           return $user->hasAnyRoles(['admin', 'organizer']);
         });
 
         Gate::define('delete-users', function ($user){
@@ -38,11 +38,27 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('auth-access-user', function ($user){
-            return $user->hasAnyRoles(['admin', 'author', 'user', 'PESERTA']);
+            return $user->hasAnyRoles(['admin', 'organizer', 'user', 'PESERTA']);
         });
 
         Gate::define('student_view', function ($user){
-           return $user->hasAnyRoles(['user', 'PESERTA']);
+           return $user->hasAnyRoles(['user', 'PESERTA', 'AJK', 'SU', 'BENDAHARI', 'TIMBALAN PENGERUSI', 'PENGERUSI']);
+        });
+
+        Gate::define('organizer_view', function ($user){
+           return $user->hasRole('organizer');
+        });
+
+        Gate::define('admin_view', function ($user){
+            return $user->hasRole('admin');
+        });
+
+        Gate::define('admin_organizer_view', function ($user){
+            return $user->hasAnyRoles(['admin', 'organizer']);
+        });
+
+        Gate::define('all_except_admin_view', function ($user){
+            return $user->hasAnyRoles(['user', 'PESERTA', 'AJK', 'SU', 'BENDAHARI', 'TIMBALAN PENGERUSI', 'PENGERUSI', 'organizer']);
         });
     }
 }
