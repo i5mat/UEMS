@@ -376,14 +376,20 @@
                                     <td>Not Past</td>
                                 @endif
                                 <td>
-                                    <button data-myeventtype="{{ $eve->event_type }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2" @if(\Auth::id() != $eve->organizer) hidden @endif>Edit</button>
+                                    @if (App\User::findOrFail(\Auth::id())->hasRole('admin'))
+                                        <button data-myeventtype="{{ $eve->event_type }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
+                                    @else
+                                        <button data-myeventtype="{{ $eve->event_type }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2" @if(\Auth::id() != $eve->organizer) hidden @endif>Edit</button>
+                                    @endif
                                 </td>
                                 <td>
-                                    <form method="POST" action="/event/{{ $eve->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                        <button type="submit" class="btn btn-warning">Delete</button>
-                                    </form>
+                                    @if (App\User::findOrFail(\Auth::id())->hasRole('admin') OR \Auth::id() == $eve->organizer)
+                                        <form method="POST" action="/event/{{ $eve->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                            <button type="submit" class="btn btn-warning">Delete</button>
+                                        </form>
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('vP', $eve->id) }}"> <button type="button" class="btn btn-success float-left">View</button> </a>

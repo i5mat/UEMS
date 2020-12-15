@@ -57,6 +57,12 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'file' => 'required',
+        ]);
+
         $data = new Document();
         if($request->file('file')){
             $file=$request->file('file');
@@ -68,7 +74,14 @@ class DocumentController extends Controller
         $data->title = $request->title;
         $data->description=$request->description;
         $data->user_id = \Auth::id();
-        $data->save();
+
+        if($data->save()) {
+            $request->session()->flash('success',  'File uploaded successfully');
+        }
+        else {
+            $request->session()->flash('error', 'File not Deleted. There was an error.');
+        }
+
         return redirect()->back();
 
     }
@@ -141,7 +154,7 @@ class DocumentController extends Controller
         $docs = Document::findOrFail($id);
 
         if($docs->delete()) {
-            $request->session()->flash('success',  $docs->name.' own file deleted successfully');
+            $request->session()->flash('success',  'File deleted successfully');
         }
         else {
             $request->session()->flash('error', 'File not Deleted. There was an error.');

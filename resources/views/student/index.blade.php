@@ -4,6 +4,17 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @can('admin_view')
                 <div class="card">
 
@@ -102,9 +113,9 @@
                     <div class="card-body table-responsive">
                         <form action="/files" method="POST" enctype="multipart/form-data">
                             {{csrf_field()}}
-                            <input type="text" name="title" placeholder="Title" class="form-control"><br>
-                            <input type="text" name="description" placeholder="Short description!" class="form-control"><br><br>&nbsp;
-                            <input type="file" name="file">
+                            <input type="text" name="title" placeholder="Title" class="form-control @error('title') is-invalid @enderror"><br>
+                            <input type="text" name="description" placeholder="Short description!" class="form-control @error('description') is-invalid @enderror"><br><br>&nbsp;
+                            <input type="file" name="file" class="@error('file') is-invalid @enderror">
                             <button type="submit" value="Submit" class="btn btn-primary float-right">Submit</button>
                         </form>
                     </div>

@@ -19,7 +19,12 @@
                     <div class="card-header">Reporting by Pie Chart</div>
 
                     <div class="card-body">
-                        <div id="c"></div>
+                        @can('admin_view')
+                            <div id="c"></div>
+                        @endcan
+                        @can('organizer_view')
+                            <div id="d"></div>
+                        @endcan
                     </div>
                 </div><br>
 
@@ -59,7 +64,76 @@
                 },
 
                 title: {
-                    text: 'Total Events Created Per Month'
+                    text: 'Total Events Created Per Month for All Users'
+                },
+
+                xAxis: {
+                    categories: [
+                        'January',
+                        'February',
+                        'March',
+                        'April',
+                        'May',
+                        'June',
+                        'July',
+                        'August',
+                        'September',
+                        'October',
+                        'November',
+                        'December'
+                    ]
+                },
+
+                series: [{
+                    type: 'pie',
+                    allowPointSelect: true,
+                    keys: ['name', 'y', 'selected', 'sliced'],
+                    data: [
+                        ['January', k, false],
+                        ['February', k2, false],
+                        ['March', k3, false],
+                        ['April', k4, false],
+                        ['May', k5, false],
+                        ['June', k6, false],
+                        ['July', k7, false],
+                        ['August', k8, false],
+                        ['September', k9, false],
+                        ['October', k10, false],
+                        ['November', k11, false],
+                        ['December', k12, false]
+                    ],
+                    showInLegend: true
+                }]
+            });
+
+        });
+    </script>
+
+    <script type="application/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var k = @json($evecount122->count());
+            var k2 = @json($evecount111->count());
+            var k3 = @json($evecount100->count());
+            var k4 = @json($evecount99->count());
+            var k5 = @json($evecount88->count());
+            var k6 = @json($evecount77->count());
+            var k7 = @json($evecount66->count());
+            var k8 = @json($evecount55->count());
+            var k9 = @json($evecount44->count());
+            var k10 = @json($evecount33->count());
+            var k11 = @json($evecount22->count());
+            var k12 = @json($evecount11->count());
+            var name = @json($username);
+
+            Highcharts.chart('d', {
+
+                chart: {
+                    styledMode: true
+                },
+
+                title: {
+                    text: 'Total Events Created Per Month ' + name
                 },
 
                 xAxis: {

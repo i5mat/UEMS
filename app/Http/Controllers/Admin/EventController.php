@@ -43,6 +43,8 @@ class EventController extends Controller
 
     public function reportIndex()
     {
+        $username = Auth::user()->name;
+
         $evecount1 = DB::table('EVENTS')
             ->whereMonth('CREATED_AT','=','12')
             ->get();
@@ -90,6 +92,74 @@ class EventController extends Controller
         $evecount12 = DB::table('EVENTS')
             ->whereMonth('CREATED_AT','=','1')
             ->get();
+
+        // END OF EVENT COUNT FOR ADMIN
+
+        // START OF EVENT COUNT FOR SPECIFIC USER
+
+        $evecount11 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','12')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount22 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','11')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount33 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','10')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount44 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','9')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount55 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','8')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount66 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','7')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount77 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','6')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount88 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','5')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount99 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','4')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount100 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','3')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount111 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','2')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        $evecount122 = DB::table('EVENTS')
+            ->whereMonth('CREATED_AT','=','1')
+            ->where('user_id', '=', Auth::id())
+            ->get();
+
+        // END OF EVENT COUNT FOR SPECIFIC USER
+
+        // START OF USER COUNT
 
         $userscount = DB::table('USERS')
             ->whereMonth('CREATED_AT','=','12')
@@ -139,8 +209,9 @@ class EventController extends Controller
             ->whereMonth('CREATED_AT','=','1')
             ->get();
 
-        return view('report.index', compact('evecount1', 'evecount2', 'evecount3', 'evecount4',
-            'evecount5', 'evecount6', 'evecount7', 'evecount8', 'evecount9', 'evecount10', 'evecount11', 'evecount12',
+        return view('report.index', compact( 'username','evecount1', 'evecount2', 'evecount3', 'evecount4',
+            'evecount5', 'evecount6', 'evecount7', 'evecount8', 'evecount9', 'evecount10', 'evecount11', 'evecount12', 'evecount11', 'evecount22', 'evecount33', 'evecount44',
+            'evecount55', 'evecount66', 'evecount77', 'evecount88', 'evecount99', 'evecount100', 'evecount111', 'evecount122',
             'userscount','userscount1','userscount2','userscount3','userscount4','userscount5','userscount6','userscount7','userscount8',
             'userscount9','userscount10','userscount11'));
     }

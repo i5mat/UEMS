@@ -48,6 +48,11 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <label class="form-check-label">
+                                    <a href="https://uems.test/password/reset">If you want to change password, click here!</a>
+                                </label>
+
                                 <div class="form-group">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
