@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Certificate;
 use App\Document;
 use App\User;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class DocumentController extends Controller
         $aList = DB::table('documents')
             ->join('users', 'users.id', '=', 'documents.user_id')
             ->select('documents.id AS doc_id', 'documents.description',
-                'users.name AS stud_name', 'documents.title', 'documents.file')->get();
+                'users.name AS stud_name', 'documents.title', 'documents.file', 'documents.user_id AS u_id')->get();
 
         return view('student.index', compact('aList', 'bList'));
 
@@ -83,7 +84,23 @@ class DocumentController extends Controller
         }
 
         return redirect()->back();
+    }
 
+    public function approvalCert(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $data = new Certificate();
+        $data->user_id = $user->id;
+
+        if($data->save()) {
+            $request->session()->flash('success',  'Certificate approved successfully');
+        }
+        else {
+            $request->session()->flash('error', 'Cert not approved. There was an error.');
+        }
+
+        return redirect()->route('show_cert');
     }
 
     public function updateProfile(Request $request, $id)

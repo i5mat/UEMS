@@ -48,6 +48,7 @@ Route::post('/files', 'DocumentController@store');
 Route::get('/upload', 'DocumentController@index')->name('show_cert');
 Route::get('/file/download/{file}','DocumentController@download');
 Route::delete('/files/del/{id}', 'DocumentController@destroy');
+Route::post('/upload/approve/{id}', 'DocumentController@approvalCert');
 
 Route::get('/profile', 'DocumentController@userProfile')->name('user_profile');
 Route::post('/profile/{id}', 'DocumentController@updateProfile')->name('update_profile');

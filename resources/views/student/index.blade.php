@@ -31,7 +31,6 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th></th>
                             </tr>
                             @foreach($aList as $u)
                                 <tr>
@@ -45,10 +44,14 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <form action="" method="POST" class="float-left">
+                                        @if(App\Certificate::where('user_id', $u->u_id)->exists())
+                                            <button type="button" class="btn btn-danger" disabled title="cert have already approved before" >Disabled</button>
+                                        @else
+                                        <form action="/upload/approve/{{ $u->u_id }}" method="POST" class="float-left">
                                             @csrf
                                             <button type="submit" class="btn btn-primary">Approve</button>
                                         </form>
+                                        @endif
                                     </td>
                                     <td>
                                         <form method="POST" action="/files/del/{{ $u->doc_id }}">

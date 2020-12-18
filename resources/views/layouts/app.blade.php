@@ -153,7 +153,7 @@
                                     </a>
                                     @endcan
 
-                                    @can('student_view')
+                                    @can('all_except_admin_view')
                                     <a class="dropdown-item" href="{{ route('qrscanner') }}" onclick="scan()">
                                         QR Attendance
                                     </a>
@@ -172,7 +172,7 @@
                                     @endcan
 
                                     <a class="dropdown-item" href="{{ route('show_cert') }}">
-                                        Upload Certificate
+                                        Certificate
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
