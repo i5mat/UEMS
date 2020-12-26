@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Appoint;
 use App\Attendance;
+use App\EventType;
+use App\Role;
 use App\RoleUser;
 use App\Transaction;
 use DateTime;
@@ -35,10 +37,15 @@ class EventController extends Controller
         $aList = DB::table('events')
             ->join('event_type', 'event_type.id', '=', 'events.event_type_id')
             ->join('event_level', 'event_level.id', '=', 'events.event_level_id')
-            ->select('event_type.name AS event_type', 'event_level.name AS event_level', 'events.name', 'events.description', 'events.venue', 'events.capacity',
+            ->select('event_type.name AS event_type', 'event_level.name AS event_level', 'events.name', 'events.description', 'events.venue', 'events.capacity', 'events.event_type_id',
                 'events.start', 'events.end', 'events.id', 'events.user_id AS organizer')->get();
 
         return view('events.index', compact('events', 'eventList', 'aList', 'eventLevel', 'users', 'roles', 'eve'));
+    }
+
+    public function calendarIndex()
+    {
+        return view('events.calendar');
     }
 
     public function reportIndex()
@@ -322,13 +329,22 @@ class EventController extends Controller
         $att = RoleUser::where('user_id', $data->user_id)->where('role_id', $data->role_id)->count();
         $att2 = Appoint::where('user_id', $data2->user_id)->where('role_id', $data2->role_id)->where('event_id', $data2->event_id)->count();
 
+        $testCheck = RoleUser::where('user_id', '=', $data->user_id)->where('role_id', '=', $data->role_id)->exists();
+
         if($att == 0 && $att2 == 0) {
             $data->save();
             $data2->save();
             $request->session()->flash('success',  'User Appointment has been inserted.');
         }
+        elseif (!$testCheck) {
+            $data2->save();
+            $request->session()->flash('success',  'User Appointment to an Event has been inserted.');
+        }
         elseif ($att == 1 && $att2 == 1) {
             $request->session()->flash('error', 'There was an error, probably you have assigned the role to the user.');
+        }
+        else {
+            $request->session()->flash('error', 'There was an error, you can only hold 1 role.');
         }
 
         return redirect('/admin/users');

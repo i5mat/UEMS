@@ -23,9 +23,11 @@
                         Create Event
                     </button>
 
+                    @can('admin_view')
                     <button type="button" class="btn btn-primary float-right" style="margin:5px;" data-toggle="modal" data-target="#exampleModalCenter3">
                         Assign Role
                     </button>
+                    @endcan
 
                     </div>
 
@@ -202,6 +204,7 @@
                                             <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event Type</label>
 
                                             <div class="col-md-6">
+                                                <input id="event_types" value="">
                                                 <select class="form-control" name="event_types">
                                                     <option>Select Event Type</option>
                                                     @foreach ($eventList as $eList)
@@ -284,7 +287,7 @@
 
                                             <div class="col-md-6">
                                                 <select class="form-control" name="uems_users" id="uems_users">
-                                                    <option>Select Which User</option>
+                                                    <option disabled selected>Select Which User</option>
                                                     @foreach ($users as $user)
                                                         <option value="{{ $user->id }}">
                                                             {{ $user->name }}
@@ -299,7 +302,7 @@
 
                                             <div class="col-md-6">
                                                 <select class="form-control" name="uems_roles" id="uems_roles">
-                                                    <option>Select Role</option>
+                                                    <option disabled selected>Select Role</option>
                                                     @foreach ($roles as $role)
                                                         <option value="{{ $role->id }}">
                                                             {{ $role->name }}
@@ -314,7 +317,7 @@
 
                                             <div class="col-md-6">
                                                 <select class="form-control" name="uems_events" id="uems_events">
-                                                    <option>Select Event</option>
+                                                    <option disabled selected>Select Event</option>
                                                     @foreach ($eve as $e)
                                                         <option value="{{ $e->id }}">
                                                             {{ $e->name }}
@@ -377,9 +380,9 @@
                                 @endif
                                 <td>
                                     @if (App\User::findOrFail(\Auth::id())->hasRole('admin'))
-                                        <button data-myeventtype="{{ $eve->event_type }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
+                                        <button data-myeventtype="{{ $eve->event_type_id }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
                                     @else
-                                        <button data-myeventtype="{{ $eve->event_type }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2" @if(\Auth::id() != $eve->organizer) hidden @endif>Edit</button>
+                                        <button data-myeventtype="{{ $eve->event_type_id }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2" @if(\Auth::id() != $eve->organizer) hidden @endif>Edit</button>
                                     @endif
                                 </td>
                                 <td>

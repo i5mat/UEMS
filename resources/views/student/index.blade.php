@@ -112,7 +112,7 @@
 
                 @can('all_except_admin_view')
                 <div class="card">
-                    <div class="card-header">Upload your certificate here!</div>
+                    <div class="card-header">Upload certificate here!</div>
                     <div class="card-body table-responsive">
                         <form action="/files" method="POST" enctype="multipart/form-data">
                             {{csrf_field()}}

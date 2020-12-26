@@ -42,6 +42,7 @@ Route::get('/participants/{id}', [EventController::class, 'viewParticipants'])->
 Route::get('/transaction', [EventController::class, 'viewTransactions'])->name('vT')->middleware('can:auth-access-user');
 
 Route::post('/appoint/reg', [EventController::class, 'appointAdd'])->name('reg-appoint')->middleware('can:auth-access-user');
+
 Route::get('/report', [EventController::class, 'reportIndex'])->name('reporting')->middleware('can:manage-users');
 
 Route::post('/files', 'DocumentController@store');
@@ -52,6 +53,8 @@ Route::post('/upload/approve/{id}', 'DocumentController@approvalCert');
 
 Route::get('/profile', 'DocumentController@userProfile')->name('user_profile');
 Route::post('/profile/{id}', 'DocumentController@updateProfile')->name('update_profile');
+
+Route::get('/calendar', [EventController::class, 'calendarIndex'])->name('show_calendar');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);

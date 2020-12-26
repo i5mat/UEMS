@@ -15,7 +15,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
     {{-- HighCharts --}}
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -90,6 +89,7 @@
         }
 
     </style>
+
 
 </head>
 <body>
@@ -175,6 +175,10 @@
                                         Certificate
                                     </a>
 
+                                    <a class="dropdown-item" href="{{ route('show_calendar') }}">
+                                        Calendar
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -228,6 +232,8 @@
         modal.find('.modal-body #startdate').val(start);
         modal.find('.modal-body #enddate').val(end);
         modal.find('.modal-body #event_types').val(event_type);
+
+        document.cookie = 'name='.concat(event_type);
     })
 </script>
 
