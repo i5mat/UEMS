@@ -27,8 +27,8 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <p><img src="/image/check.png"></p>
-                        <h3 style="font-variant: small-caps;">Events</h3>
-                        <a href="/event"><button type="button" class="btn btn-success">Go</button></a>
+                        <h3 style="font-variant: small-caps;">Attendance</h3>
+                        <a href="/attendance"><button type="button" class="btn btn-success">Go</button></a>
                     </div>
                 </div>
             </div>
@@ -51,8 +51,8 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <p><img src="/image/check.png"></p>
-                        <h3 style="font-variant: small-caps;">Appointment</h3>
-                        <a href="/appoint"><button type="button" class="btn btn-success">Go</button></a>
+                        <h3 style="font-variant: small-caps;">Points</h3>
+                        <a href="/transaction"><button type="button" class="btn btn-success">Go</button></a>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
 
     <div class="card">
         <div class="card-body">
-            <div id="d"></div>
+            <div id="container"></div>
         </div>
     </div>
 
@@ -83,9 +83,9 @@
         <div class="col-lg-6 col-md-12">
             <div class="card">
                 <div class="card-header">TEST</div>
-                    <div class="card-body">
-                        ...
-                    </div>
+                <div class="card-body">
+                    ...
+                </div>
             </div>
         </div>
     </div>
@@ -93,68 +93,77 @@
     <script type="application/javascript">
         document.addEventListener('DOMContentLoaded', function () {
 
-            var k = @json($evecount122->count());
-            var k2 = @json($evecount111->count());
-            var k3 = @json($evecount100->count());
-            var k4 = @json($evecount99->count());
-            var k5 = @json($evecount88->count());
-            var k6 = @json($evecount77->count());
-            var k7 = @json($evecount66->count());
-            var k8 = @json($evecount55->count());
-            var k9 = @json($evecount44->count());
-            var k10 = @json($evecount33->count());
-            var k11 = @json($evecount22->count());
-            var k12 = @json($evecount11->count());
-            var name = @json($username);
-
-            Highcharts.chart('d', {
-
-                chart: {
-                    styledMode: true
-                },
+            Highcharts.chart('container', {
 
                 title: {
-                    text: 'Total Events Created Per Month ' + name
+                    text: 'Solar Employment Growth by Sector, 2010-2016'
+                },
+
+                subtitle: {
+                    text: 'Source: thesolarfoundation.com'
+                },
+
+                yAxis: {
+                    title: {
+                        text: 'Number of Employees'
+                    }
                 },
 
                 xAxis: {
-                    categories: [
-                        'January',
-                        'February',
-                        'March',
-                        'April',
-                        'May',
-                        'June',
-                        'July',
-                        'August',
-                        'September',
-                        'October',
-                        'November',
-                        'December'
-                    ]
+                    accessibility: {
+                        rangeDescription: 'Range: 2010 to 2017'
+                    }
+                },
+
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        pointStart: 2010
+                    }
                 },
 
                 series: [{
-                    type: 'pie',
-                    allowPointSelect: true,
-                    keys: ['name', 'y', 'selected', 'sliced'],
-                    data: [
-                        ['January', k, false],
-                        ['February', k2, false],
-                        ['March', k3, false],
-                        ['April', k4, false],
-                        ['May', k5, false],
-                        ['June', k6, false],
-                        ['July', k7, false],
-                        ['August', k8, false],
-                        ['September', k9, false],
-                        ['October', k10, false],
-                        ['November', k11, false],
-                        ['December', k12, false]
-                    ],
-                    showInLegend: true
-                }]
+                    name: 'Installation',
+                    data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+                }, {
+                    name: 'Manufacturing',
+                    data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+                }, {
+                    name: 'Sales & Distribution',
+                    data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+                }, {
+                    name: 'Project Development',
+                    data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+                }, {
+                    name: 'Other',
+                    data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+                }],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
             });
         });
     </script>
+
 @endsection

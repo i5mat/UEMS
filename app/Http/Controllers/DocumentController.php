@@ -21,13 +21,13 @@ class DocumentController extends Controller
         $bList = DB::table('documents')
             ->join('users', 'users.id', '=', 'documents.user_id')
             ->select('documents.id AS doc_id', 'documents.description',
-                'users.name AS stud_name', 'documents.title', 'documents.file')
+                'users.name AS stud_name', 'documents.title', 'documents.file', 'documents.user_id AS usr_id', 'documents.status')
             ->where('user_id', '=', \Auth::user()->id)->get();
 
         $aList = DB::table('documents')
             ->join('users', 'users.id', '=', 'documents.user_id')
             ->select('documents.id AS doc_id', 'documents.description',
-                'users.name AS stud_name', 'documents.title', 'documents.file', 'documents.user_id AS u_id')->get();
+                'users.name AS stud_name', 'documents.title', 'documents.file', 'documents.user_id AS u_id', 'documents.status')->get();
 
         return view('student.index', compact('aList', 'bList'));
 
@@ -75,6 +75,7 @@ class DocumentController extends Controller
         $data->title = $request->title;
         $data->description=$request->description;
         $data->user_id = \Auth::id();
+        $data->status = 0;
 
         if($data->save()) {
             $request->session()->flash('success',  'File uploaded successfully');
@@ -88,12 +89,13 @@ class DocumentController extends Controller
 
     public function approvalCert(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $docs = Document::findOrFail($id);
 
         $data = new Certificate();
-        $data->user_id = $user->id;
+        $data->user_id = $docs->user_id;
+        $docs->status = 1;
 
-        if($data->save()) {
+        if($data->save() && $docs->save()) {
             $request->session()->flash('success',  'Certificate approved successfully');
         }
         else {

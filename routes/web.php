@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,10 @@ Route::get('/profile', 'DocumentController@userProfile')->name('user_profile');
 Route::post('/profile/{id}', 'DocumentController@updateProfile')->name('update_profile');
 
 Route::get('/calendar', [EventController::class, 'calendarIndex'])->name('show_calendar');
+Route::get('/appoint', [EventController::class, 'appointIndex'])->name('appoint_view');
+Route::delete('/appoint/del/{id}', [EventController::class, 'appointTerminate'])->name('appoint_del');
+
+Route::get('/user/dashboard', [HomeController::class, 'userDash'])->name('usr-dash');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);

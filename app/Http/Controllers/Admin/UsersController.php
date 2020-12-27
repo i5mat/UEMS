@@ -28,7 +28,9 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all()->except(1);
-        return view('admin.users.index')->with('users', $users);
+        $events = Event::all();
+
+        return view('admin.users.index', compact('users', 'events'));
     }
 
     public function indexCert()

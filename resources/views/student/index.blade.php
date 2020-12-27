@@ -44,10 +44,10 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @if(App\Certificate::where('user_id', $u->u_id)->exists())
+                                        @if($u->status == 1)
                                             <button type="button" class="btn btn-danger" disabled title="cert have already approved before" >Disabled</button>
                                         @else
-                                        <form action="/upload/approve/{{ $u->u_id }}" method="POST" class="float-left">
+                                        <form action="/upload/approve/{{ $u->doc_id }}" method="POST" class="float-left">
                                             @csrf
                                             <button type="submit" class="btn btn-primary">Approve</button>
                                         </form>
@@ -96,11 +96,22 @@
                                                 </a>
                                             </td>
                                             <td>
+                                                @if($u->status == 0)
                                                 <form method="POST" action="/files/del/{{ $u->doc_id }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Delete</button>
                                                 </form>
+                                                @else
+                                                    <button disabled type="submit" class="btn btn-danger">Delete</button>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($u->status == 1)
+                                                    <img src="/image/check.png">
+                                                @else
+                                                    <img src="/image/close.png">
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

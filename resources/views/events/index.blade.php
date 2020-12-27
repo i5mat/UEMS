@@ -23,12 +23,6 @@
                         Create Event
                     </button>
 
-                    @can('admin_view')
-                    <button type="button" class="btn btn-primary float-right" style="margin:5px;" data-toggle="modal" data-target="#exampleModalCenter3">
-                        Assign Role
-                    </button>
-                    @endcan
-
                     </div>
 
                     <!-- Modal 1 -->
@@ -254,80 +248,6 @@
 
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal 3 -->
-                    <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Add an Assignation</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body">
-
-                                    <form method="POST" action="/appoint/reg" >
-                                        @csrf
-                                        {{ method_field('POST') }}
-
-                                        <div class="form-group row">
-                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">User</label>
-
-                                            <div class="col-md-6">
-                                                <select class="form-control" name="uems_users" id="uems_users">
-                                                    <option disabled selected>Select Which User</option>
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}">
-                                                            {{ $user->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Role</label>
-
-                                            <div class="col-md-6">
-                                                <select class="form-control" name="uems_roles" id="uems_roles">
-                                                    <option disabled selected>Select Role</option>
-                                                    @foreach ($roles as $role)
-                                                        <option value="{{ $role->id }}">
-                                                            {{ $role->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event</label>
-
-                                            <div class="col-md-6">
-                                                <select class="form-control" name="uems_events" id="uems_events">
-                                                    <option disabled selected>Select Event</option>
-                                                    @foreach ($eve as $e)
-                                                        <option value="{{ $e->id }}">
-                                                            {{ $e->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Save changes</button>

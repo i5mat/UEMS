@@ -48,6 +48,22 @@ class EventController extends Controller
         return view('events.calendar');
     }
 
+    public function appointIndex()
+    {
+        $users = User::all()->except(1);
+        $roles = DB::table('roles')->get()->except(0, 1, 2);
+        $eve = DB::table('events')->get();
+
+        $appointment = DB::table('appoint')
+            ->join('users', 'users.id', '=', 'appoint.user_id')
+            ->join('roles', 'roles.id', '=', 'appoint.role_id')
+            ->join('events', 'events.id', '=', 'appoint.event_id')
+            ->select('users.name AS usrname', 'roles.name AS rolename', 'events.name AS evename', 'appoint.created_at', 'appoint.id')
+            ->get();
+
+        return view('appoint.index', compact('appointment', 'users', 'roles', 'eve'));
+    }
+
     public function reportIndex()
     {
         $username = Auth::user()->name;
@@ -344,10 +360,10 @@ class EventController extends Controller
             $request->session()->flash('error', 'There was an error, probably you have assigned the role to the user.');
         }
         else {
-            $request->session()->flash('error', 'There was an error, you can only hold 1 role.');
+            $request->session()->flash('error', 'There was an error, you can only hold 1 role for an event.');
         }
 
-        return redirect('/admin/users');
+        return redirect('/appoint');
     }
 
     public function delAtt($id, Request $request, Attendance $att)
@@ -583,5 +599,22 @@ class EventController extends Controller
         }
 
         return redirect()->route('event');
+    }
+
+    public function appointTerminate($id, Request $request)
+    {
+        $appoint = Appoint::findOrFail($id);
+
+        $roleusr = DB::table('role_user')
+            ->where('role_id', $appoint->role_id)
+            ->where('user_id', $appoint->user_id)
+            ->delete();
+
+        if ($appoint->delete() && $roleusr)
+            $request->session()->flash('success',  'Successfully terminated.');
+        else
+            $request->session()->flash('error', 'There was an error.');
+
+        return redirect()->route('appoint_view');
     }
 }
