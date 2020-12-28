@@ -45,12 +45,22 @@ class EventController extends Controller
 
     public function calendarIndex()
     {
-        return view('events.calendar');
+        $sql = DB::table('events')
+            ->select('name AS title', 'start', 'end')
+            ->get();
+
+        $myArray = array();
+        foreach ($sql as $row) {
+            $myArray[] = $row;
+        }
+
+        //return dd(json_encode($myArray))
+        return view('events.calendar', compact('myArray'));
     }
 
     public function appointIndex()
     {
-        $users = User::all()->except(1);
+        $users = User::all()->except([1, Auth::id()]);
         $roles = DB::table('roles')->get()->except(0, 1, 2);
         $eve = DB::table('events')->get();
 
@@ -272,7 +282,7 @@ class EventController extends Controller
                     $data->save();
                     $data2->save();
 
-                    $msg=['capacity'=>$eve->capacity, 'event_desc'=>$eve->description, 'status'=>'Success'];
+                    $msg=['capacity'=>$eve->capacity, 'event_name'=>$eve->name, 'status'=>'Success'];
                     $info = "ok";
 
                 }elseif($att == 1) {
@@ -312,8 +322,13 @@ class EventController extends Controller
             ->where('transaction.user_id', Auth::id())->get();
 
         $cList = DB::table('users')->where('id', '=', Auth::id())->first();
+        $usrlist = DB::table('users')
+            ->where('id', '!=', 1)
+            ->where('id', '!=', 2)
+            ->orderBy('point', 'DESC')
+            ->paginate(1);
 
-        return view('transactions.index', compact('bList', 'cList'));
+        return view('transactions.index', compact('bList', 'cList', 'usrlist'));
     }
 
     public function attendanceindex()

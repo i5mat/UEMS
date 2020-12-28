@@ -12,35 +12,48 @@
                             <form action="/profile/{{ $user->id }}" method="POST" class="needs-validation" novalidate>
                                 @csrf
                                 <div class="form-row">
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label for="validationCustom01">Name</label>
                                         <input name="name" type="text" class="form-control" id="validationCustom01" placeholder="Name" value="{{ $user->name }}" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="validationCustom02">Email</label>
-                                        <input name="email" type="email" class="form-control" id="validationCustom02" placeholder="Email" value="{{ $user->email }}" required>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="validationCustom02">Email/Username</label>
+                                        <input name="email" type="email" class="form-control" id="validationCustom02" placeholder="Email" value="{{ $user->email }}" required disabled>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="validationCustomUsername">Username</label>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="validationCustomUsername">Matric No.</label>
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required value="{{ $user->id }}" disabled>
+                                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required value="{{ $user->matric_no }}" disabled>
                                             <div class="invalid-feedback">
                                                 Please choose a username.
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-3">
+                                    <div class="col-md-2 mb-3">
+                                        <label for="validationCustomUsername">Faculty</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required value="@if(substr($user->matric_no, 1, -7)) FTMK @else UTeM @endif" disabled>
+                                            <div class="invalid-feedback">
+                                                Please choose a username.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustomUsername">Date Created</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required value="{{ date('d-m-Y H:i A', strtotime($user->created_at)) }}" disabled>
+                                            <div class="invalid-feedback">
+                                                Please choose a username.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
                                         <label for="validationCustom05">Points</label>
                                         <input type="text" class="form-control" id="validationCustom05" placeholder="Point" value="{{ $user->point }}" required disabled>
                                         <div class="invalid-feedback">

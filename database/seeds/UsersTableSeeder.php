@@ -22,20 +22,23 @@ class UsersTableSeeder extends Seeder
         $userRole = Role::where('name','user')->first();
 
         $admin = User::create([
+            'matric_no' => 'B031920001',
             'name' => 'Admin User',
-            'email' => 'admin@admin.com',
+            'email' => 'admin@uems.admin.com.my',
             'password' => Hash::make('password')
         ]);
 
         $organizer = User::create([
+            'matric_no' => 'B031920002',
             'name' => 'Organizer User',
-            'email' => 'organizer@organizer.com',
+            'email' => 'organizer@uems.organizer.com.my',
             'password' => Hash::make('password')
         ]);
 
         $user = User::create([
-            'name' => 'Generic User',
-            'email' => 'user@user.com',
+            'matric_no' => 'B031920003',
+            'name' => 'Wan Ismat',
+            'email' => 'ismat@uems.com.my',
             'password' => Hash::make('password')
         ]);
 

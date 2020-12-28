@@ -45,6 +45,10 @@ class LoginController extends Controller
             $this->redirectTo = route('admin.users.index');
             return $this->redirectTo;
         }
+        else if (Auth::user()->hasRole('user')) {
+            $this->redirectTo = route('usr-dash');
+            return $this->redirectTo;
+        }
 
         $this->redirectTo = route('home');
         return $this->redirectTo;

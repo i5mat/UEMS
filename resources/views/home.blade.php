@@ -14,9 +14,9 @@
             <div class="card-deck">
                 <div class="card">
                     <div class="card-body text-center">
-                        <p><img src="/image/check.png"></p>
-                        <h3 style="font-variant: small-caps;">QR Scanner</h3>
-                        <a href="/qr"><button type="button" class="btn btn-success">Go</button></a>
+                        <p><img src="/image/schedule.png"></p>
+                        <h3 style="font-variant: small-caps;">Calendar</h3>
+                        <a href="/calendar"><button type="button" class="btn btn-success">Go</button></a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="card-deck">
                 <div class="card">
                     <div class="card-body text-center">
-                        <p><img src="/image/check.png"></p>
+                        <p><img src="/image/sports-stadium.png"></p>
                         <h3 style="font-variant: small-caps;">Events</h3>
                         <a href="/event"><button type="button" class="btn btn-success">Go</button></a>
                     </div>
@@ -38,7 +38,7 @@
             <div class="card-deck">
                 <div class="card">
                     <div class="card-body text-center">
-                        <p><img src="/image/check.png"></p>
+                        <p><img src="/image/certificate.png"></p>
                         <h3 style="font-variant: small-caps;">Certificate</h3>
                         <a href="/upload"><button type="button" class="btn btn-success">Go</button></a>
                     </div>
@@ -50,7 +50,7 @@
             <div class="card-deck">
                 <div class="card">
                     <div class="card-body text-center">
-                        <p><img src="/image/check.png"></p>
+                        <p><img src="/image/rotation.png"></p>
                         <h3 style="font-variant: small-caps;">Appointment</h3>
                         <a href="/appoint"><button type="button" class="btn btn-success">Go</button></a>
                     </div>
@@ -72,10 +72,9 @@
     <div class="row">
         <div class="col-lg-6 col-md-12">
             <div class="card">
-                <div class="card-header card-header-warning">
-                    <h4 class="card-title pt-3"><img src="/image/check.png"></h4>
-                    <p class="card-category">List of users can be view here!
-                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#userlist">View</button></p>
+                <div class="card-header">TEST</div>
+                <div class="card-body">
+                    ...
                 </div>
             </div>
         </div>

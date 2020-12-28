@@ -15,7 +15,7 @@
         <div class="card-deck">
             <div class="card">
                 <div class="card-body text-center">
-                    <p><img src="/image/check.png"></p>
+                    <p><img src="/image/report.png"></p>
                     <h3 style="font-variant: small-caps;">Reporting</h3>
                     <a href="/report"><button type="button" class="btn btn-success">Go</button></a>
                 </div>
@@ -27,9 +27,9 @@
         <div class="card-deck">
             <div class="card">
                 <div class="card-body text-center">
-                    <p><img src="/image/check.png"></p>
+                    <p><img src="/image/sports-stadium.png"></p>
                     <h3 style="font-variant: small-caps;">Events</h3>
-                    <a href="/report"><button type="button" class="btn btn-success">Go</button></a>
+                    <a href="/event"><button type="button" class="btn btn-success">Go</button></a>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
         <div class="card-deck">
             <div class="card">
                 <div class="card-body text-center">
-                    <p><img src="/image/check.png"></p>
+                    <p><img src="/image/certificate.png"></p>
                     <h3 style="font-variant: small-caps;">Certificate</h3>
                     <a href="/upload"><button type="button" class="btn btn-success">Go</button></a>
                 </div>
@@ -51,7 +51,7 @@
         <div class="card-deck">
             <div class="card">
                 <div class="card-body text-center">
-                    <p><img src="/image/check.png"></p>
+                    <p><img src="/image/rotation.png"></p>
                     <h3 style="font-variant: small-caps;">Appointment</h3>
                     <a href="/appoint"><button type="button" class="btn btn-success">Go</button></a>
                 </div>
@@ -120,7 +120,7 @@
         Highcharts.chart('container', {
 
             title: {
-                text: 'Solar Employment Growth by Sector, 2010-2016'
+                text: 'Solar Employment Growth by Sector, 2010-2020'
             },
 
             subtitle: {
@@ -135,7 +135,7 @@
 
             xAxis: {
                 accessibility: {
-                    rangeDescription: 'Range: 2010 to 2017'
+                    rangeDescription: 'Range: 2014 to 2021'
                 }
             },
 
@@ -150,7 +150,7 @@
                     label: {
                         connectorAllowed: false
                     },
-                    pointStart: 2010
+                    pointStart: 2014
                 }
             },
 

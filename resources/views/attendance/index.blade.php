@@ -29,7 +29,7 @@
                                     <td>{{ $e->venue }}</td>
                                     <td>{{ $e->capacity }}</td>
                                     <td>
-                                        @if(new DateTime() > new DateTime($e->end) OR new DateTime() <= new DateTime($e->start))
+                                        @if(new DateTime(now()) > new DateTime($e->end))
                                             <button type="button" class="btn btn-danger" disabled >Disabled</button>
                                         @elseif (App\Attendance::where('user_id', '=', Auth::user()->id)->where('event_id', '=', $e->id)->exists())
                                             <form action="/attendance/del/{{ $e->id }}" method="POST" class="float-left">

@@ -12,9 +12,14 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/image/Logo_UTeM_kecil.png"/>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css">
+
+    {{-- FullCalendar --}}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
 
     {{-- HighCharts --}}
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -190,17 +195,15 @@
                                     </a>
                                     @endcan
 
-                                    @can('all_except_admin_view')
+                                    @can('student_view')
                                     <a class="dropdown-item" href="{{ route('qrscanner') }}" onclick="scan()">
                                         QR Attendance
                                     </a>
                                     @endcan
 
-                                    @can('student_view')
                                     <a class="dropdown-item" href="{{ route('vT') }}">
-                                        Points History
+                                        Points
                                     </a>
-                                    @endcan
 
                                     @can('admin_view')
                                     <a class="dropdown-item" href="{{ route('reporting') }}">
@@ -308,7 +311,7 @@
                     if(response.info=='ok'){
                         scanner.stop()
                         $('#nbre').html(response.msg.capacity)
-                        $('#eve').html(response.msg.event_desc)
+                        $('#eve').html(response.msg.event_name)
                         $('#stats').html(response.msg.status)
                         alert("ATTENDANCE RECORDED");
                         scan();

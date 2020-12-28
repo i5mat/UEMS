@@ -60,5 +60,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('all_except_admin_view', function ($user){
             return $user->hasAnyRoles(['user', 'PESERTA', 'AJK', 'SU', 'BENDAHARI', 'TIMBALAN PENGERUSI', 'PENGERUSI', 'organizer']);
         });
+
+        Gate::define('all_users', function ($user){
+            return $user->hasAnyRoles(['admin', 'user', 'PESERTA', 'AJK', 'SU', 'BENDAHARI', 'TIMBALAN PENGERUSI', 'PENGERUSI', 'organizer']);
+        });
     }
 }
