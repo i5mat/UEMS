@@ -50,8 +50,14 @@ class UsersController extends Controller
         imagettftext($image, 18, 0, 880, 188, $color,$font, $date);
         $test = Auth::user()->name;
         $course = $event->name;
+        $profname = 'PROFESOR MADYA TS. DR. MOHD SANUSI BIN AZMI';
+        $cert_id = rand(1, 1000000).'-UTeM';
+        $designation = 'PENGARAH PUSAT SUKAN';
         imagettftext($image, 45, 0, 120, 520, $color,$font, $test);
         imagettftext($image, 40, 0, 120, 640, $color,$font, $course);
+        imagettftext($image, 22, 0, 116, 1088, $color,$font, $profname);
+        imagettftext($image, 18, 0, 260, 1190, $color,$font, $cert_id);
+        imagettftext($image, 17, 0, 116, 1120, $color,$font, $designation);
         imagejpeg($image,"public/cert/$test $course.jpg");
 
         return redirect()->route('attindex')->with('success', ' Cert has been created. Check at Public folder.');
