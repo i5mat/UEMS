@@ -60,7 +60,7 @@ class EventController extends Controller
 
     public function appointIndex()
     {
-        $users = User::all()->except([1, Auth::id()]);
+        $users = User::all()->except([1, Auth::id(), 2]);
         $roles = DB::table('roles')->get()->except(0, 1, 2);
         $eve = DB::table('events')->get();
 

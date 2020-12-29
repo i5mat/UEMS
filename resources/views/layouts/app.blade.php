@@ -138,9 +138,28 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                @guest
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     <img src="/image/logo_utem_kecil.png" width="50" height="50">
                 </a>
+                @endguest
+
+                @if (Auth::check())
+                    @if (Auth::user()->hasAnyRoles(['admin']))
+                        <a class="navbar-brand" href="{{ url('/admin/user') }}">
+                            <img src="/image/logo_utem_kecil.png" width="50" height="50">
+                        </a>
+                    @elseif (Auth::user()->hasAnyRoles(['organizer']))
+                        <a class="navbar-brand" href="{{ url('/home') }}">
+                            <img src="/image/logo_utem_kecil.png" width="50" height="50">
+                        </a>
+                    @elseif (Auth::user()->hasAnyRoles(['user']))
+                        <a class="navbar-brand" href="{{ url('/user/dashboard') }}">
+                            <img src="/image/logo_utem_kecil.png" width="50" height="50">
+                        </a>
+                    @endif
+                @endif
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

@@ -67,28 +67,6 @@
         </div>
     </div>
 
-    <br>
-
-    <div class="row">
-        <div class="col-lg-6 col-md-12">
-            <div class="card">
-                <div class="card-header">TEST</div>
-                <div class="card-body">
-                    ...
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-md-12">
-            <div class="card">
-                <div class="card-header">TEST</div>
-                    <div class="card-body">
-                        ...
-                    </div>
-            </div>
-        </div>
-    </div>
-
     <script type="application/javascript">
         document.addEventListener('DOMContentLoaded', function () {
 

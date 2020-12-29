@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -97,6 +98,8 @@ class HomeController extends Controller
 
     public function userDash()
     {
-        return view('userdash');
+        $usr = DB::table('users')->where('id', '=', Auth::id())->first();
+
+        return view('userdash', compact('usr'));
     }
 }

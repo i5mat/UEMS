@@ -170,7 +170,8 @@
                                             <label for="description-label" class="col-md-4 col-form-label text-md-right">Description</label>
 
                                             <div class="col-md-6">
-                                                <input id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autocomplete="description">
+{{--                                                <input id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autocomplete="description">--}}
+                                                <textarea class="form-control" rows="5" name="description" id="description" required autocomplete="description"></textarea>
                                             </div>
                                         </div>
 
