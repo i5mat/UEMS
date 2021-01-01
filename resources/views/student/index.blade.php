@@ -121,7 +121,7 @@
                     @endcan
                 <br>
 
-                @can('all_except_admin_view')
+                @can('student_view')
                 <div class="card">
                     <div class="card-header">Upload certificate here!</div>
                     <div class="card-body table-responsive">

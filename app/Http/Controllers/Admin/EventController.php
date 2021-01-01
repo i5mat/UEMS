@@ -358,9 +358,12 @@ class EventController extends Controller
         $data2->event_id = $request->input('uems_events');
 
         $att = RoleUser::where('user_id', $data->user_id)->where('role_id', $data->role_id)->count();
-        $att2 = Appoint::where('user_id', $data2->user_id)->where('role_id', $data2->role_id)->where('event_id', $data2->event_id)->count();
+        $att2 = Appoint::where('role_id', $data2->role_id)->where('event_id', $data2->event_id)->count();
 
-        $testCheck = RoleUser::where('user_id', '=', $data->user_id)->where('role_id', '=', $data->role_id)->exists();
+        //$testCheck = RoleUser::where('user_id', '=', $data->user_id)->where('role_id', '=', $data->role_id)->exists();
+        $testCheck = Appoint::where('role_id', '=', $data->role_id)
+            ->where('event_id', '=', $data2->event_id)
+            ->exists();
 
         if($att == 0 && $att2 == 0) {
             $data->save();

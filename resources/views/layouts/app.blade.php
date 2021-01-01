@@ -146,7 +146,7 @@
 
                 @if (Auth::check())
                     @if (Auth::user()->hasAnyRoles(['admin']))
-                        <a class="navbar-brand" href="{{ url('/admin/user') }}">
+                        <a class="navbar-brand" href="{{ url('/admin/users') }}">
                             <img src="/image/logo_utem_kecil.png" width="50" height="50">
                         </a>
                     @elseif (Auth::user()->hasAnyRoles(['organizer']))
