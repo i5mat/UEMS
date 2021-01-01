@@ -38,9 +38,9 @@
             <div class="card-deck">
                 <div class="card">
                     <div class="card-body text-center">
-                        <p><img src="/image/certificate.png"></p>
-                        <h3 style="font-variant: small-caps;">Certificate</h3>
-                        <a href="/upload"><button type="button" class="btn btn-success">Go</button></a>
+                        <p><img src="/image/top-three.png"></p>
+                        <h3 style="font-variant: small-caps;">Rank</h3>
+                        <a href="/transaction"><button type="button" class="btn btn-success">Go</button></a>
                     </div>
                 </div>
             </div>

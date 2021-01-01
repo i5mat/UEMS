@@ -454,13 +454,13 @@ class EventController extends Controller
         $data2->user_id = Auth::user()->id;
         $data2->description = 'POINT ACQUIRE FROM '.$event->name;
 
-        if ($user->hasRole('PENGERUSI')) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
-            $data2->point = 10;
+        if ($user->hasRole('PENGERUSI') && $event->event_level_id == 1) {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
+            $data2->point = 12;
         }
-        else {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
-            $data2->point = 2;
+        elseif ($user->hasRole('user') && $event->event_level_id == 1) {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+            $data2->point = 4;
         }
 
 //        if ($users->user_role == 'PENGERUSI') {

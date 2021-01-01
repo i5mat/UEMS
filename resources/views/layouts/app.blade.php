@@ -230,9 +230,11 @@
                                     </a>
                                     @endcan
 
+                                    @can('admin_user_view')
                                     <a class="dropdown-item" href="{{ route('show_cert') }}">
                                         Certificate
                                     </a>
+                                    @endcan
 
                                     <a class="dropdown-item" href="{{ route('show_calendar') }}">
                                         Calendar

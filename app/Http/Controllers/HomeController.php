@@ -99,7 +99,8 @@ class HomeController extends Controller
     public function userDash()
     {
         $usr = DB::table('users')->where('id', '=', Auth::id())->first();
+        $username = Auth::user()->name;
 
-        return view('userdash', compact('usr'));
+        return view('userdash', compact('usr', 'username'));
     }
 }

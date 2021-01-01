@@ -120,16 +120,16 @@
         Highcharts.chart('container', {
 
             title: {
-                text: 'Solar Employment Growth by Sector, 2010-2020'
+                text: 'Event Yearly Phases in UTeM, 2014-2021'
             },
 
             subtitle: {
-                text: 'Source: thesolarfoundation.com'
+                text: 'Data for every event phase'
             },
 
             yAxis: {
                 title: {
-                    text: 'Number of Employees'
+                    text: 'Total'
                 }
             },
 
@@ -155,20 +155,23 @@
             },
 
             series: [{
-                name: 'Installation',
-                data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+                name: 'FAKULTI',
+                data: [4393, 5250, 5717, 6965, 9703, 11993, 13713, 15417]
             }, {
-                name: 'Manufacturing',
-                data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+                name: 'KOLEJ',
+                data: [2491, 2406, 2974, 2985, 3249, 3028, 3812, 4043]
             }, {
-                name: 'Sales & Distribution',
-                data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+                name: 'UTeM',
+                data: [1174, 1772, 1600, 1977, 2018, 2437, 3214, 3938]
             }, {
-                name: 'Project Development',
-                data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+                name: 'NEGERI',
+                data: [null, null, 7988, 1219, 1511, 2245, 3440, 3422]
             }, {
-                name: 'Other',
-                data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+                name: 'KEBANGSAAN',
+                data: [12908, 5948, 8105, 11248, 8989, 1181, 1827, 1811]
+            },{
+                name: 'ANTARABANGSA',
+                data: [12908, 5948, 8105, 11248, 8989, 1181, 1827, 1811]
             }],
 
             responsive: {
