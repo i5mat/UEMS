@@ -516,6 +516,8 @@ class EventController extends Controller
         $this->validate($request, [
             'start-date' => 'required|before:end-date',
             'end-date' => 'required',
+            'event_types' => 'required',
+            'event_levels' => 'required',
         ]);
 
         $event = auth()->user();

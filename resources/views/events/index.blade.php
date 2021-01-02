@@ -82,7 +82,7 @@
 
                                             <div class="col-md-6">
                                                 <select class="form-control" name="event_types">
-                                                    <option>Select Event Type</option>
+                                                    <option disabled selected>Select Event Type</option>
                                                     @foreach ($eventList as $eList)
                                                         <option value="{{ $eList->id }}">
                                                             {{ $eList->name }}
@@ -97,7 +97,7 @@
 
                                             <div class="col-md-6">
                                                 <select class="form-control" name="event_levels">
-                                                    <option>Select Event Level</option>
+                                                    <option disabled selected>Select Event Level</option>
                                                     @foreach ($eventLevel as $eLevel)
                                                         <option value="{{ $eLevel->id }}">
                                                             {{ $eLevel->name }}
