@@ -137,7 +137,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid">
                 @guest
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     <img src="/image/logo_utem_kecil.png" width="50" height="50">
@@ -258,7 +258,7 @@
         </nav>
 
         <main class="py-4">
-            <div class="container">
+            <div class="container-fluid w-50">
                 @include('partials.alerts')
                 @yield('content')
             </div>
