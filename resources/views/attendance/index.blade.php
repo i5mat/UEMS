@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div>
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-xl-12">
                 <div class="card">
 
                     <div class="card-header">Attendance</div>
 
                     <div class="card-body table-responsive">
-                        <table class="table">
+                        <table class="table text-center">
                             <thead class="thead-dark">
                             <tr>
                                 <th scope="col">ID</th>

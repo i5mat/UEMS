@@ -33,7 +33,7 @@
 
     <style>
         #preview{
-            width:670px;
+            width:890px;
             height: 500px;
             margin:0px auto;
         }
@@ -47,6 +47,11 @@
             border: 1px solid #ddd;
             margin-bottom: 12px;
         }
+
+        /*body {*/
+        /*    background: rgb(0,255,255);*/
+        /*    background: linear-gradient(90deg, rgba(0,255,255,0.8239670868347339) 0%, rgba(255,255,255,1) 50%, rgba(0,212,255,0.6671043417366946) 100%);*/
+        /*}*/
     </style>
 
     <style>

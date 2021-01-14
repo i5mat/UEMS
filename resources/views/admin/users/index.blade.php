@@ -4,7 +4,7 @@
 
 <div class="card table-responsive">
     <div class="card-body">
-        <img src="/image/logo_utem_2.png" style="width:1024px;height:206px;">
+        <img src="/image/logo_utem_2.png" style="width:1190px;height:225px;">
     </div>
 </div>
 

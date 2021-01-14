@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-xl-12">
 
             @if(Session::has('flash_message'))
                 <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session('flash_message') !!}</em></div>

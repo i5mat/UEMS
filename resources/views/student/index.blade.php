@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div>
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-xl-12">
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -28,9 +28,9 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>By</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>Download</th>
+                                <th>Approve</th>
+                                <th>Actions</th>
                             </tr>
                             @foreach($aList as $u)
                                 <tr>
@@ -80,9 +80,9 @@
                                         <th>Title</th>
                                         <th>Description</th>
                                         <th>By</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>Download</th>
+                                        <th>Actions</th>
+                                        <th>Approve Status</th>
                                     </tr>
                                     @foreach($bList as $u)
                                         <tr>
