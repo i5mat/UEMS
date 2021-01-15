@@ -199,8 +199,9 @@
                                             <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event Type</label>
 
                                             <div class="col-md-6">
-                                                <input id="event_types" value="">
-                                                <select class="form-control" name="event_types">
+                                                <input id="event_types" hidden>
+
+                                                <select class="form-control" name="event_types" id="event_types">
                                                     <option>Select Event Type</option>
                                                     @foreach ($eventList as $eList)
                                                         <option value="{{ $eList->id }}">
@@ -215,7 +216,9 @@
                                             <label for="capacity-label" class="col-md-4 col-form-label text-md-right">Event Level</label>
 
                                             <div class="col-md-6">
-                                                <select class="form-control" name="event_levels">
+                                                <input id="event_levels" hidden>
+
+                                                <select class="form-control" name="event_levels" id="event_levels">
                                                     <option>Select Event Level</option>
                                                     @foreach ($eventLevel as $eLevel)
                                                         <option value="{{ $eLevel->id }}">
@@ -301,9 +304,9 @@
                                 @endif
                                 <td>
                                     @if (App\User::findOrFail(\Auth::id())->hasRole('admin'))
-                                        <button data-myeventtype="{{ $eve->event_type_id }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
+                                        <button data-myeventlevel="{{ $eve->event_level_id }}" data-myeventtype="{{ $eve->event_type_id }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2">Edit</button>
                                     @else
-                                        <button data-myeventtype="{{ $eve->event_type_id }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2" @if(\Auth::id() != $eve->organizer) hidden @endif>Edit</button>
+                                        <button data-myeventlevel="{{ $eve->event_level_id }}" data-myeventtype="{{ $eve->event_type_id }}" data-myend="{{ date('Y-m-d H:i:s', strtotime($eve->end)) }}" data-mystart="{{ date('Y-m-d H:i:s', strtotime($eve->start)) }}" data-cap="{{ $eve->capacity }}" data-venue="{{ $eve->venue }}" data-eventid="{{ $eve->id }}" data-myname="{{ $eve->name }}" data-mydesc="{{ $eve->description }}" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter2" @if(\Auth::id() != $eve->organizer) hidden @endif>Edit</button>
                                     @endif
                                 </td>
                                 <td>

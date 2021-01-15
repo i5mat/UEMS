@@ -285,6 +285,7 @@
         var start = button.data('mystart') // Extract info from data-* attributes
         var end = button.data('myend') // Extract info from data-* attributes
         var event_type = button.data('myeventtype') // Extract info from data-* attributes
+        var event_level = button.data('myeventlevel') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
@@ -298,6 +299,7 @@
         modal.find('.modal-body #startdate').val(start);
         modal.find('.modal-body #enddate').val(end);
         modal.find('.modal-body #event_types').val(event_type);
+        modal.find('.modal-body #event_levels').val(event_level);
 
         document.cookie = 'name='.concat(event_type);
     })

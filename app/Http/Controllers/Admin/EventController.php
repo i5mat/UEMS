@@ -37,7 +37,8 @@ class EventController extends Controller
         $aList = DB::table('events')
             ->join('event_type', 'event_type.id', '=', 'events.event_type_id')
             ->join('event_level', 'event_level.id', '=', 'events.event_level_id')
-            ->select('event_type.name AS event_type', 'event_level.name AS event_level', 'events.name', 'events.description', 'events.venue', 'events.capacity', 'events.event_type_id',
+            ->select('event_type.name AS event_type', 'event_level.name AS event_level', 'events.name',
+                'events.description', 'events.venue', 'events.capacity', 'events.event_type_id', 'events.event_level_id',
                 'events.start', 'events.end', 'events.id', 'events.user_id AS organizer')->get();
 
         return view('events.index', compact('events', 'eventList', 'aList', 'eventLevel', 'users', 'roles', 'eve'));
