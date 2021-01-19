@@ -13,6 +13,7 @@ use App\Event;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function Sodium\add;
@@ -280,155 +281,190 @@ class EventController extends Controller
 //                        $data2->point = 2;
 //                    }
 
-                    // THIS IS FOR PENGERUSI ROLE
-                    if ($user->hasRole('PENGERUSI') && $eve->event_level_id == 1) {
+                    if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 1)
+                    {
                         DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
                         $data2->point = 12;
                     }
-                    elseif ($user->hasRole('PENGERUSI') && $eve->event_level_id == 2) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 1)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+                        $data2->point = 10;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 1)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+                        $data2->point = 9;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 1)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+                        $data2->point = 9;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 1)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 8);
+                        $data2->point = 8;
+                    }
+                    elseif ($eve->event_level_id == 1)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
+                        $data2->point = 2;
+                    }
+
+                    if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 2)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
                         $data2->point = 12;
                     }
-                    elseif ($user->hasRole('PENGERUSI') && $eve->event_level_id == 3) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 2)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+                        $data2->point = 10;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 2)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+                        $data2->point = 9;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 2)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+                        $data2->point = 9;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 2)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 8);
+                        $data2->point = 8;
+                    }
+                    elseif ($eve->event_level_id == 2)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
+                        $data2->point = 2;
+                    }
+
+                    if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 3)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 13);
                         $data2->point = 13;
                     }
-                    elseif ($user->hasRole('PENGERUSI') && $eve->event_level_id == 4) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 3)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 11);
+                        $data2->point = 11;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 3)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+                        $data2->point = 10;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 3)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+                        $data2->point = 10;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 3)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+                        $data2->point = 9;
+                    }
+                    elseif ($eve->event_level_id == 3)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 3);
+                        $data2->point = 3;
+                    }
+
+                    if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 4)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 15);
                         $data2->point = 15;
                     }
-                    elseif ($user->hasRole('PENGERUSI') && $eve->event_level_id == 5) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 18;
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 4)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 13);
+                        $data2->point = 13;
                     }
-                    elseif ($user->hasRole('PENGERUSI') && $eve->event_level_id == 6) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 25;
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 4)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
+                        $data2->point = 12;
                     }
-                    // THIS IS FOR USER ROLE
-                    elseif ($user->hasRole('user') && $eve->event_level_id == 1) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 4;
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 4)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
+                        $data2->point = 12;
                     }
-                    elseif ($user->hasRole('user') && $eve->event_level_id == 2) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 4;
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 4)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 11);
+                        $data2->point = 11;
                     }
-                    elseif ($user->hasRole('user') && $eve->event_level_id == 3) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+                    elseif ($eve->event_level_id == 4)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 5);
                         $data2->point = 5;
                     }
-                    elseif ($user->hasRole('user') && $eve->event_level_id == 4) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 7;
+
+                    if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 5)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 18);
+                        $data2->point = 18;
                     }
-                    elseif ($user->hasRole('user') && $eve->event_level_id == 5) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 10;
-                    }
-                    elseif ($user->hasRole('user') && $eve->event_level_id == 6) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 17;
-                    }
-                    // THIS IS FOR AJK ROLE
-                    elseif ($user->hasRole('AJK') && $eve->event_level_id == 1) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 8;
-                    }
-                    elseif ($user->hasRole('AJK') && $eve->event_level_id == 2) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 8;
-                    }
-                    elseif ($user->hasRole('AJK') && $eve->event_level_id == 3) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 9;
-                    }
-                    elseif ($user->hasRole('AJK') && $eve->event_level_id == 4) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 11;
-                    }
-                    elseif ($user->hasRole('AJK') && $eve->event_level_id == 5) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 14;
-                    }
-                    elseif ($user->hasRole('AJK') && $eve->event_level_id == 6) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 21;
-                    }
-                    // THIS IS FOR SU ROLE
-                    elseif ($user->hasRole('SU') && $eve->event_level_id == 1) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 9;
-                    }
-                    elseif ($user->hasRole('SU') && $eve->event_level_id == 2) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 9;
-                    }
-                    elseif ($user->hasRole('SU') && $eve->event_level_id == 3) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 10;
-                    }
-                    elseif ($user->hasRole('SU') && $eve->event_level_id == 4) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 12;
-                    }
-                    elseif ($user->hasRole('SU') && $eve->event_level_id == 5) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 15;
-                    }
-                    elseif ($user->hasRole('SU') && $eve->event_level_id == 6) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 22;
-                    }
-                    // THIS IS FOR BENDAHARI ROLE
-                    elseif ($user->hasRole('BENDAHARI') && $eve->event_level_id == 1) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 9;
-                    }
-                    elseif ($user->hasRole('BENDAHARI') && $eve->event_level_id == 2) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 9;
-                    }
-                    elseif ($user->hasRole('BENDAHARI') && $eve->event_level_id == 3) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 10;
-                    }
-                    elseif ($user->hasRole('BENDAHARI') && $eve->event_level_id == 4) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 12;
-                    }
-                    elseif ($user->hasRole('BENDAHARI') && $eve->event_level_id == 5) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 15;
-                    }
-                    elseif ($user->hasRole('BENDAHARI') && $eve->event_level_id == 6) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 22;
-                    }
-                    // THIS IS FOR TIMBALAN PENGERUSI ROLE
-                    elseif ($user->hasRole('TIMBALAN PENGERUSI') && $eve->event_level_id == 1) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 10;
-                    }
-                    elseif ($user->hasRole('TIMBALAN PENGERUSI') && $eve->event_level_id == 2) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 10;
-                    }
-                    elseif ($user->hasRole('TIMBALAN PENGERUSI') && $eve->event_level_id == 3) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 11;
-                    }
-                    elseif ($user->hasRole('TIMBALAN PENGERUSI') && $eve->event_level_id == 4) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-                        $data2->point = 13;
-                    }
-                    elseif ($user->hasRole('TIMBALAN PENGERUSI') && $eve->event_level_id == 5) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 5)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 16);
                         $data2->point = 16;
                     }
-                    elseif ($user->hasRole('TIMBALAN PENGERUSI') && $eve->event_level_id == 6) {
-                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 5)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 15);
+                        $data2->point = 15;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 5)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 15);
+                        $data2->point = 15;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 5)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 14);
+                        $data2->point = 14;
+                    }
+                    elseif ($eve->event_level_id == 5)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 8);
+                        $data2->point = 8;
+                    }
+
+                    if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 6)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 25);
+                        $data2->point = 25;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 6)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 23);
                         $data2->point = 23;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 6)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 22);
+                        $data2->point = 22;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 6)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 22);
+                        $data2->point = 22;
+                    }
+                    elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $eve->id)->exists() && $eve->event_level_id == 6)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 21);
+                        $data2->point = 21;
+                    }
+                    elseif ($eve->event_level_id == 6)
+                    {
+                        DB::table('users')->where('id', '=', Auth::id())->increment('point', 15);
+                        $data2->point = 15;
                     }
 
                     $data->save();
@@ -566,155 +602,190 @@ class EventController extends Controller
 //            $data2->point = 4;
 //        }
 
-        // THIS IS FOR PENGERUSI ROLE
-        if ($user->hasRole('PENGERUSI') && $event->event_level_id == 1) {
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
             DB::table('users')->where('id', '=', Auth::id())->decrement('point', 12);
-            $data2->point = 12;
+            $data2->point = -12;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 12;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 10);
+            $data2->point = -10;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 13;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 9);
+            $data2->point = -9;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 15;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 9);
+            $data2->point = -9;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 18;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 8);
+            $data2->point = -8;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 25;
+        elseif ($event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 2);
+            $data2->point = -2;
         }
-        // THIS IS FOR USER ROLE
-        elseif ($user->hasRole('user') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 4;
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 12);
+            $data2->point = -12;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 4;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 10);
+            $data2->point = -10;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 5;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 9);
+            $data2->point = -9;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 7;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 9);
+            $data2->point = -9;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 10;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 8);
+            $data2->point = -8;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 17;
+        elseif ($event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 2);
+            $data2->point = -2;
         }
-        // THIS IS FOR AJK ROLE
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 8;
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 13);
+            $data2->point = -13;
         }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 8;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 11);
+            $data2->point = -11;
         }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 9;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 10);
+            $data2->point = -10;
         }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 11;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 10);
+            $data2->point = -10;
         }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 14;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 9);
+            $data2->point = -9;
         }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 21;
+        elseif ($event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 3);
+            $data2->point = -3;
         }
-        // THIS IS FOR SU ROLE
-        elseif ($user->hasRole('SU') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 9;
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 15);
+            $data2->point = -15;
         }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 9;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 13);
+            $data2->point = -13;
         }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 10;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 12);
+            $data2->point = -12;
         }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 12;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 12);
+            $data2->point = -12;
         }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 15;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 11);
+            $data2->point = -11;
         }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 22;
+        elseif ($event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 5);
+            $data2->point = -5;
         }
-        // THIS IS FOR BENDAHARI ROLE
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 9;
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 18);
+            $data2->point = -18;
         }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 9;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 16);
+            $data2->point = -16;
         }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 10;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 15);
+            $data2->point = -15;
         }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 12;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 15);
+            $data2->point = -15;
         }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 15;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 14);
+            $data2->point = -14;
         }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 22;
+        elseif ($event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 8);
+            $data2->point = -8;
         }
-        // THIS IS FOR TIMBALAN PENGERUSI ROLE
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 10;
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 25);
+            $data2->point = -25;
         }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 10;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 23);
+            $data2->point = -23;
         }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 11;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 22);
+            $data2->point = -22;
         }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 13;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 22);
+            $data2->point = -22;
         }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 16;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 21);
+            $data2->point = -21;
         }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 4);
-            $data2->point = 23;
+        elseif ($event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->decrement('point', 15);
+            $data2->point = -15;
         }
 
         $data2->description = 'WITHDRAW FROM '.$event->name.'.';
@@ -758,174 +829,191 @@ class EventController extends Controller
         $data2->user_id = Auth::user()->id;
         $data2->description = 'POINT ACQUIRE FROM '.$event->name;
 
-        // THIS IS FOR PENGERUSI ROLE
-        if ($user->hasRole('PENGERUSI') && $event->event_level_id == 1) {
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
             DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
             $data2->point = 12;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+            $data2->point = 10;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+            $data2->point = 9;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+            $data2->point = 9;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 8);
+            $data2->point = 8;
+        }
+        elseif ($event->event_level_id == 1)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
+            $data2->point = 2;
+        }
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
             $data2->point = 12;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+            $data2->point = 10;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+            $data2->point = 9;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+            $data2->point = 9;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 8);
+            $data2->point = 8;
+        }
+        elseif ($event->event_level_id == 2)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
+            $data2->point = 2;
+        }
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 13);
             $data2->point = 13;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 11);
+            $data2->point = 11;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+            $data2->point = 10;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
+            $data2->point = 10;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 9);
+            $data2->point = 9;
+        }
+        elseif ($event->event_level_id == 3)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 3);
+            $data2->point = 3;
+        }
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 15);
             $data2->point = 15;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 18;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 13);
+            $data2->point = 13;
         }
-        elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 25;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
+            $data2->point = 12;
         }
-        // THIS IS FOR USER ROLE
-        elseif ($user->hasRole('user') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 4;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
+            $data2->point = 12;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 4;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 11);
+            $data2->point = 11;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+        elseif ($event->event_level_id == 4)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 5);
             $data2->point = 5;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 7;
+
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 18);
+            $data2->point = 18;
         }
-        elseif ($user->hasRole('user') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 10;
-        }
-        elseif ($user->hasRole('user') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 17;
-        }
-        // THIS IS FOR AJK ROLE
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 8;
-        }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 8;
-        }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 9;
-        }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 11;
-        }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 14;
-        }
-        elseif ($user->hasRole('AJK') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 21;
-        }
-        // THIS IS FOR SU ROLE
-        elseif ($user->hasRole('SU') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 9;
-        }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 9;
-        }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 10;
-        }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 12;
-        }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 15;
-        }
-        elseif ($user->hasRole('SU') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 22;
-        }
-        // THIS IS FOR BENDAHARI ROLE
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 9;
-        }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 9;
-        }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 10;
-        }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 12;
-        }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 15;
-        }
-        elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 22;
-        }
-        // THIS IS FOR TIMBALAN PENGERUSI ROLE
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 1) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 10;
-        }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 2) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 10;
-        }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 3) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 11;
-        }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 4) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 13;
-        }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 5) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 16);
             $data2->point = 16;
         }
-        elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 6) {
-            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-            $data2->point = 23;
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 15);
+            $data2->point = 15;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 15);
+            $data2->point = 15;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 14);
+            $data2->point = 14;
+        }
+        elseif ($event->event_level_id == 5)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 8);
+            $data2->point = 8;
         }
 
-//        if ($user->hasRole('PENGERUSI') && $event->event_level_id == 1) {
-//            DB::table('users')->where('id', '=', Auth::id())->increment('point', 12);
-//            $data2->point = 12;
-//        }
-//        elseif ($user->hasRole('user') && $event->event_level_id == 1) {
-//            DB::table('users')->where('id', '=', Auth::id())->increment('point', 4);
-//            $data2->point = 4;
-//        }
-
-//        if ($users->user_role == 'PENGERUSI') {
-//            DB::table('users')->where('id', '=', Auth::id())->increment('point', 10);
-//            $data2->point = 10;
-//        }
-//        elseif ($users->user_role == 'PESERTA') {
-//            DB::table('users')->where('id', '=', Auth::id())->increment('point', 2);
-//            $data2->point = 2;
-//        }
+        if (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 25);
+            $data2->point = 25;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 23);
+            $data2->point = 23;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 22);
+            $data2->point = 22;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 22);
+            $data2->point = 22;
+        }
+        elseif (Appoint::where('user_id', '=', Auth::id())->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 21);
+            $data2->point = 21;
+        }
+        elseif ($event->event_level_id == 6)
+        {
+            DB::table('users')->where('id', '=', Auth::id())->increment('point', 15);
+            $data2->point = 15;
+        }
 
         if($data->save() AND $data2->save()) {
             $request->session()->flash('success',  $event->name.' event has been recorded. Point is recorded.');
@@ -1192,156 +1280,192 @@ class EventController extends Controller
             ->where('event_id', '=', $data->event_id)
             ->exists();
 
-        if (!$testCheck) {
-            // THIS IS FOR PENGERUSI ROLE
-            if ($user->hasRole('PENGERUSI') && $event->event_level_id == 1) {
+        if (!$testCheck)
+        {
+            if (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+            {
                 DB::table('users')->where('id', '=', $data->user_id)->increment('point', 12);
                 $data2->point = 12;
             }
-            elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 2) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 10);
+                $data2->point = 10;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 9);
+                $data2->point = 9;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 9);
+                $data2->point = 9;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 1)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 8);
+                $data2->point = 8;
+            }
+            elseif ($event->event_level_id == 1)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 2);
+                $data2->point = 2;
+            }
+
+            if (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 12);
                 $data2->point = 12;
             }
-            elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 3) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 10);
+                $data2->point = 10;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 9);
+                $data2->point = 9;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 9);
+                $data2->point = 9;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 2)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 8);
+                $data2->point = 8;
+            }
+            elseif ($event->event_level_id == 2)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 2);
+                $data2->point = 2;
+            }
+
+            if (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 13);
                 $data2->point = 13;
             }
-            elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 4) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 11);
+                $data2->point = 11;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 10);
+                $data2->point = 10;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 10);
+                $data2->point = 10;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 3)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 9);
+                $data2->point = 9;
+            }
+            elseif ($event->event_level_id == 3)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 3);
+                $data2->point = 3;
+            }
+
+            if (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 15);
                 $data2->point = 15;
             }
-            elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 5) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 18;
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 13);
+                $data2->point = 13;
             }
-            elseif ($user->hasRole('PENGERUSI') && $event->event_level_id == 6) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 25;
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 12);
+                $data2->point = 12;
             }
-            // THIS IS FOR USER ROLE
-            elseif ($user->hasRole('user') && $event->event_level_id == 1) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 4;
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 12);
+                $data2->point = 12;
             }
-            elseif ($user->hasRole('user') && $event->event_level_id == 2) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 4;
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 4)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 11);
+                $data2->point = 11;
             }
-            elseif ($user->hasRole('user') && $event->event_level_id == 3) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
+            elseif ($event->event_level_id == 4)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 5);
                 $data2->point = 5;
             }
-            elseif ($user->hasRole('user') && $event->event_level_id == 4) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 7;
+
+            if (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 18);
+                $data2->point = 18;
             }
-            elseif ($user->hasRole('user') && $event->event_level_id == 5) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 10;
-            }
-            elseif ($user->hasRole('user') && $event->event_level_id == 6) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 17;
-            }
-            // THIS IS FOR AJK ROLE
-            elseif ($user->hasRole('AJK') && $event->event_level_id == 1) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 8;
-            }
-            elseif ($user->hasRole('AJK') && $event->event_level_id == 2) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 8;
-            }
-            elseif ($user->hasRole('AJK') && $event->event_level_id == 3) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 9;
-            }
-            elseif ($user->hasRole('AJK') && $event->event_level_id == 4) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 11;
-            }
-            elseif ($user->hasRole('AJK') && $event->event_level_id == 5) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 14;
-            }
-            elseif ($user->hasRole('AJK') && $event->event_level_id == 6) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 21;
-            }
-            // THIS IS FOR SU ROLE
-            elseif ($user->hasRole('SU') && $event->event_level_id == 1) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 9;
-            }
-            elseif ($user->hasRole('SU') && $event->event_level_id == 2) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 9;
-            }
-            elseif ($user->hasRole('SU') && $event->event_level_id == 3) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 10;
-            }
-            elseif ($user->hasRole('SU') && $event->event_level_id == 4) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 12;
-            }
-            elseif ($user->hasRole('SU') && $event->event_level_id == 5) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 15;
-            }
-            elseif ($user->hasRole('SU') && $event->event_level_id == 6) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 22;
-            }
-            // THIS IS FOR BENDAHARI ROLE
-            elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 1) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 9;
-            }
-            elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 2) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 9;
-            }
-            elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 3) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 10;
-            }
-            elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 4) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 12;
-            }
-            elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 5) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 15;
-            }
-            elseif ($user->hasRole('BENDAHARI') && $event->event_level_id == 6) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 22;
-            }
-            // THIS IS FOR TIMBALAN PENGERUSI ROLE
-            elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 1) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 10;
-            }
-            elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 2) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 10;
-            }
-            elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 3) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 11;
-            }
-            elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 4) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
-                $data2->point = 13;
-            }
-            elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 5) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 16);
                 $data2->point = 16;
             }
-            elseif ($user->hasRole('TIMBALAN PENGERUSI') && $event->event_level_id == 6) {
-                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 4);
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 15);
+                $data2->point = 15;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 15);
+                $data2->point = 15;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 5)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 14);
+                $data2->point = 14;
+            }
+            elseif ($event->event_level_id == 5)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 8);
+                $data2->point = 8;
+            }
+
+            if (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 9)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 25);
+                $data2->point = 25;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 8)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 23);
                 $data2->point = 23;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 7)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 22);
+                $data2->point = 22;
+            }
+            elseif (Appoint::where('user_id', '=', $data->user_id)->where('role_id', '=', 6)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 22);
+                $data2->point = 22;
+            }
+            elseif (Appoint::where('user_id', '=',$data->user_id)->where('role_id', '=', 5)->where('event_id', '=', $event->id)->exists() && $event->event_level_id == 6)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 21);
+                $data2->point = 21;
+            }
+            elseif ($event->event_level_id == 6)
+            {
+                DB::table('users')->where('id', '=', $data->user_id)->increment('point', 15);
+                $data2->point = 15;
             }
 
             $data->save();

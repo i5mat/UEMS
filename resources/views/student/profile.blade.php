@@ -38,7 +38,7 @@
                                     <div class="col-md-2 mb-3">
                                         <label for="validationCustomUsername">Faculty</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required value="@if(substr($user->matric_no, 1, -7)) FTMK @else UTeM @endif" disabled>
+                                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required value="@if(substr($user->matric_no, 1, -7) == 03) FTMK @else UTeM @endif" disabled>
                                             <div class="invalid-feedback">
                                                 Please choose a username.
                                             </div>
